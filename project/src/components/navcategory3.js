@@ -2,14 +2,16 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './navCategory.css';
+import './navcategory3.css';
 import { FaUserPlus, FaUser, FaShoppingCart, FaHeart } from 'react-icons/fa';
 import logo from '../assets/images/logo.avif'; 
 import UserPanel from './userpanel';
 import Navbar from './Navbar';
-import ProductPage from './productpage';
+import Age from './age';
 
-const NavCategory = () => {
+
+
+const NavCategory3 = () => {
   return (
     <div>
       <div className="navbar">
@@ -24,10 +26,10 @@ const NavCategory = () => {
         <Navbar />
       </div>
       <div>
-        <ProductPage/>
+        <Age/>
       </div>
     </div>
   );
 };
 
-export default NavCategory;
+export default NavCategory3;

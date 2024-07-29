@@ -1,0 +1,112 @@
+.product-page {
+  text-align: center;
+  padding: 20px;
+  background-color: #c3f7f3; /* Add your desired background color */
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.category-links {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.category-button {
+  background-color: #ffdd01;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  transition: background-color 0.3s;
+}
+
+.category-button.active, .category-button:hover {
+  background-color: #e1c700;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 columns */
+  gap: 20px; /* Spacing between cards */
+  justify-content: center;
+}
+
+.product-card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden; /* Prevent content from overflowing */
+  width: 220px; /* Fixed width */
+  height: 400px; /* Fixed height */
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-image {
+  width: 100%;
+  height: 200px; /* Increased height */
+  object-fit: cover; /* Ensure image fits within the container */
+  border-radius: 8px;
+  overflow: hidden; /* Ensure the image does not overflow */
+}
+
+.product-name {
+  font-size: 18px;
+  margin: 10px 0;
+  height: 50px; /* Increased height */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal; /* Allow text to wrap */
+}
+
+.product-price {
+  font-size: 16px;
+  color: #888;
+}
+
+.product-actions {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.icon {
+  cursor: pointer;
+  color: #ffdd01;
+  transition: color 0.3s;
+  font-size: 30px;
+}
+
+.icon:hover {
+  color: #e1c700;
+}
+
+.buy-button {
+  background-color: #ffdd01;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  transition: background-color 0.3s;
+}
+
+.buy-button:hover {
+  background-color: #e1c700;
+}

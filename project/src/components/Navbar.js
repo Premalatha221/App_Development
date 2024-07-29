@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
-
 const Navbar = () => {
   const [isShopOpen, setShopOpen] = useState(false);
-  const [isMoreOpen, setMoreOpen] = useState(false);
+  const [isBrandsOpen, setBrandsOpen] = useState(false);
+  const [isAgeOpen, setAgeOpen] = useState(false);
 
   return (
     <header className="header">
       <nav>
-        
         <ul className="nav-links">
           <li><Link to="/">Home</Link></li>
           <li>
@@ -18,27 +17,47 @@ const Navbar = () => {
               <span>Shop By Category</span>
               {isShopOpen && (
                 <ul className="dropdown-menu">
-                  <li><Link to="/category/toys">Toys</Link></li>
-                  <li><Link to="/category/games">Games</Link></li>
-                  <li><Link to="/category/education">Education</Link></li>
+                  <li><Link to="/navcategory">Toys</Link></li>
+                  <li><Link to="/navcategory">Games</Link></li>
+                  <li><Link to="/navcategory">Education</Link></li>
                 </ul>
               )}
             </div>
           </li>
-          <li><Link to="/">Shop By Brands</Link></li>
           <li>
-
-          </li>
-          <li><Link to="/">Gifts</Link></li>
-          <li></li>
-          <li>
-            <div className="dropdown" onClick={() => setMoreOpen(!isMoreOpen)}>
-              <span>More</span>
-              {isMoreOpen && (
+            <div className="dropdown" onClick={() => setBrandsOpen(!isBrandsOpen)}>
+              <span>Shop By Brands</span>
+              {isBrandsOpen && (
                 <ul className="dropdown-menu">
-                  <li><Link to="/about">About</Link></li>
-                  <li><Link to="/contact">Contact</Link></li>
+                  <li><Link to="/navcategory2">Disney</Link></li>
+                  <li><Link to="/navcategory2">Barbie</Link></li>
+                  <li><Link to="/navcategory2">Hot wheel</Link></li>
+                </ul>
+              )}
+            </div>
+          </li>
+          <li>
+            <div className="dropdown" onClick={() => setAgeOpen(!isAgeOpen)}>
+              <span>Shop By Age</span>
+              {isAgeOpen && (
+                <ul className="dropdown-menu">
+                  <li><Link to="/navcategory3">0-3 years</Link></li>
+                  <li><Link to="/navcategory3">4-6 years</Link></li>
+                  <li><Link to="/navcategory3">6-9 years</Link></li>
+                  
+                </ul>
+              )}
+            </div>
+          </li>
+          <li>
+            <div className="dropdown" onClick={() => setAgeOpen(!isAgeOpen)}>
+              <span>More</span>
+              {isAgeOpen && (
+                <ul className="dropdown-menu">
+                  <li><Link to="/contact">Contact Us</Link></li>
+                  <li><Link to="/privacy">About Us</Link></li>
                   <li><Link to="/faq">FAQ</Link></li>
+                 
                 </ul>
               )}
             </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { Link } from 'react-router-dom';
 const ImageGallery = () => {
   const [hoveredImage, setHoveredImage] = useState(null);
 
@@ -43,6 +43,7 @@ const ImageGallery = () => {
   };
 
   return (
+    <Link to="/navcategory2">
     <div style={containerStyle}>
       <img
         src="https://www.toymarche.com/s/5f447e14285691dcc9bfcdf2/63fb313795942044b3eb760e/11-480x480.png"
@@ -103,6 +104,7 @@ src="https://static.brandirectory.com/logos/nerf001_nerf.png"
       />
      
     </div>
+    </Link>
   );
 };
 

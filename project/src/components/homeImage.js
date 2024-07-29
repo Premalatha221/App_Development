@@ -5,7 +5,7 @@ const ImageComponent = () => {
   const navigate = useNavigate(); 
 
   const handleClick = () => {
-    navigate('/nextpage'); 
+    navigate('/navcategory'); 
   };
 
   const styles = {

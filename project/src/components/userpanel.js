@@ -46,7 +46,7 @@ const UserPanel = () => {
         },
         hoveredDropdownItem: {
             backgroundColor: "#f9f9f9",
-            color: "red"
+            color: "#327ffa"
         }
     };
 
@@ -55,7 +55,7 @@ const UserPanel = () => {
             <FaUserCircle style={styles.profileIcon} onClick={toggleDropdown} />
             <div style={styles.dropdown}>
                 <Link
-                    to="/profile"
+                    to="/dashboard"
                     style={{
                         ...styles.dropdownItem,
                         ...(hoveredItem === 'profile' ? styles.hoveredDropdownItem : {})
@@ -67,7 +67,7 @@ const UserPanel = () => {
                 </Link>
                 
                 <Link
-                    to="/wishlist"
+                    to="/settings"
                     style={{
                         ...styles.dropdownItem,
                         ...(hoveredItem === 'wishlist' ? styles.hoveredDropdownItem : {})
@@ -75,19 +75,9 @@ const UserPanel = () => {
                     onMouseEnter={() => setHoveredItem('wishlist')}
                     onMouseLeave={() => setHoveredItem(null)}
                 >
-                    Wishlist
+                    Settings
                 </Link>
-                <Link
-                    to="/orders"
-                    style={{
-                        ...styles.dropdownItem,
-                        ...(hoveredItem === 'orders' ? styles.hoveredDropdownItem : {})
-                    }}
-                    onMouseEnter={() => setHoveredItem('orders')}
-                    onMouseLeave={() => setHoveredItem(null)}
-                >
-                    Orders
-                </Link>
+                
                 <Link
                     to="/"
                     style={{

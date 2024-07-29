@@ -2,14 +2,15 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './navCategory.css';
+import './navcategory2.css';
 import { FaUserPlus, FaUser, FaShoppingCart, FaHeart } from 'react-icons/fa';
 import logo from '../assets/images/logo.avif'; 
 import UserPanel from './userpanel';
 import Navbar from './Navbar';
-import ProductPage from './productpage';
+import Brand from './brand';
 
-const NavCategory = () => {
+
+const NavCategory2 = () => {
   return (
     <div>
       <div className="navbar">
@@ -24,10 +25,10 @@ const NavCategory = () => {
         <Navbar />
       </div>
       <div>
-        <ProductPage/>
+        <Brand/>
       </div>
     </div>
   );
 };
 
-export default NavCategory;
+export default NavCategory2;

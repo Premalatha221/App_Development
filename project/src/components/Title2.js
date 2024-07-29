@@ -88,7 +88,7 @@ const Title2 = () => {
             <div style={styles.container}>
                 <div style={{ ...styles.ribbon, ...styles.ribbonLeft }}></div>
                 <div style={{ ...styles.ribbon, ...styles.ribbonRight }}></div>
-                Choose by Category
+                Choose by Age
             </div>
             <style>{mediaStyles}</style> 
         </div>

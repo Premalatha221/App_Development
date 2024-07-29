@@ -1,90 +1,135 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import NavCategory from './navCategory';
+import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import baby from '../assets/images/baby.jpg'; 
 
+const EditProfile = () => {
+  const [name, setName] = useState('Prema');
+  const [email, setEmail] = useState('Prema@gmail.com');
+  const [password, setPassword] = useState('*****');
 
-const ProfilePage = () => {
-    const user = {
-        name: "Prema",
-        email: "Prema@gmail.com",
-        joined: "April 13, 2024",
-        photo: "https://cdn4.sharechat.com/sc_compressed_gm_40_j8ghfMzY2MDE0MDY2NQ.jpg?tenant=sc&referrer=pwa-sharechat-service&f=MDY2NQ.jpg" // Placeholder image URL, replace with actual photo URL
-    };
+  const handleEditProfile = () => {
+    
+    console.log('Profile updated:', { name, email, password });
+  };
 
-    const styles = {
-        container: {
-            maxWidth: "800px",
-            margin: "0 auto",
-            padding: "40px",
-            backgroundColor: "#c3f7f3",
-            borderRadius: "10px",
-            
-        },
-        header: {
-            marginBottom: "30px",
-            color: "#333",
-            fontSize: "2rem",
-            fontWeight: "bold",
-        },
-        userInfo: {
-            // display: "flex",
-            // flexDirection: "column",
-            // alignItems: "center",
-            // marginBottom: "30px",
-            padding: "20px",
-            // backgroundColor: "#fff",
-            // borderRadius: "10px",
-            // boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-        },
-        profilePhoto: {
-            width: "150px",
-            height: "150px",
-            borderRadius: "50%",
-            marginBottom: "20px",
-        },
-        userDetail: {
-            marginBottom: "15px",
-            fontSize: "1.2rem",
-            color: "#555",
-        },
-        button: {
-            padding: "12px 25px",
-            margin: "15px",
-            textDecoration: "none",
-            color: "#fff",
-            backgroundColor: "#007bff",
-            borderRadius: "5px",
-            fontSize: "1rem",
-        },
-        linkContainer: {
-            textAlign: "center",
-        },
-        background: {
-            backgroundColor: "#c3f7f3",
-            
-        },
-    };
+  return (
+    <div className="edit-profile-container">
+      <style>
+        {`
+          .edit-profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: white;
+            color: #333;
+            box-shadow: 0 0 10px #c3f7f3;
+            max-width: 600px;
+            margin: 20px auto;
+            margin-top: 90px;
+            margin-right: 300px;
+          }
 
-    return (
-        <div>
-            <NavCategory/>
-            <br></br><br></br>
-            <div style={styles.background}></div>
-            <div style={styles.container}>
-                <h1 style={styles.header}>Personal Information</h1>
-                <div style={styles.userInfo}>
-                    <img src={user.photo} alt="Profile" style={styles.profilePhoto} />
-                    <div style={styles.userDetail}><strong>Name:</strong> {user.name}</div>
-                    <div style={styles.userDetail}><strong>Email:</strong> {user.email}</div>
-                    <div style={styles.userDetail}><strong>Joined:</strong> {user.joined}</div>
-                </div>
-                <div style={styles.linkContainer}>
-                    <Link to="/edit-profile" style={styles.button}>Edit Profile</Link>
-                    <Link to="/change-password" style={styles.button}>Change Password</Link>
-                </div>
-            </div>
-        </div>
-    );
-};
+          .profile-photo-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 20px;
+          }
 
-export default ProfilePage;
+          .profile-photo {
+            width: 100%;
+            height: auto;
+          }
+
+          .edit-options {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-bottom: 20px;
+          }
+
+          .edit-options button {
+            background-color: white;
+            color: black;/*----8*/
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+
+          .edit-options button:hover {
+            background-color: #c3f7f3;
+            color: black;
+          }
+
+          .info-group {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 15px;
+          }
+
+          .info-text {
+            font-size: 16px;
+            color: #333;
+            margin-right: 10px; /* Adjusted for less space */
+            width: 30%; /* Adjust as needed */
+            text-align: left; /* Align text to the left */
+          }
+
+          .info-value {
+            font-size: 16px;
+            color: #333;
+            border-bottom: 1px solid #ccc;
+            padding: 2px 0;
+            width: calc(70% - 10px); /* Adjust for less space */
+            margin-left: 0; /* Remove any extra margin */
+          }
+
+          .edit-profile-button {
+            background-color: #c3f7f3;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+
+          .edit-profile-button:hover {
+            background-color: white;
+            color:black;/*---*/
+          }
+        `}
+      </style>
+      <div className="profile-photo-container">
+        <img src={baby} alt="Profile" className="profile-photo" />
+      </div>
+      <div className="edit-options">
+        <button>Edit Photo</button>
+      </div>
+      <div className="info-group">
+        <div className="info-text">Name:</div>
+        <div className="info-value">{name}</div>
+      </div>
+      <div className="info-group">
+        <div className="info-text">Email:</div>
+        <div className="info-value">{email}</div>
+      </div>
+      <div className="info-group">
+        <div className="info-text">Password:</div>
+        <div className="info-value">{password}</div>
+      </div>
+      <button className="edit-profile-button" onClick={handleEditProfile}>
+        Edit Profile
+      </button>
+    </div>
+  );
+}
+
+export default EditProfile;

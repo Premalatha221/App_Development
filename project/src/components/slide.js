@@ -4,9 +4,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import toy1 from '../assets/images/toy1.webp';
 import toy2 from '../assets/images/toy2.avif';
 import toy3 from '../assets/images/toy3.avif';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
+    <Link to="/navcategory">
     <div className="home">
       <Carousel>
         <Carousel.Item>
@@ -51,6 +53,7 @@ const Home = () => {
         }
       `}</style>
     </div>
+    </Link>
   );
 };
 
