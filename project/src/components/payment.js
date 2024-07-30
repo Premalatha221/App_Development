@@ -7,7 +7,7 @@ function PaymentPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here if needed
+  
   };
 
   return (

@@ -4,21 +4,17 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes,Link } from 'react-router-dom';
 
 
-import Navbar from './components/Navbar';
 
-import Footer from './components/footer';
 import Homepage from './components/HomePage';
 import Signup from './components/Register'
 import Login from './components/Login';
 import TermsAndConditions from './components/terms';
-import contact from './components/contact';
+
 import Contact from './components/contact';
 import PrivacyPolicy from './components/privacy';
 import FAQ from './components/faq';
 import NavCategory from './components/navCategory';
 
-import Orders from './components/order';
-import Sidebar from './components/sidebar';
 import Brand from './components/brand';
 import Age from './components/age';
 import NavCategory2 from './components/navcategory2';
@@ -30,6 +26,13 @@ import DashBoard from './components/dashboard';
 import ProfileBoard from './components/prodashboard';
 import ProfileWish from './components/profilewish';
 import ProfileOrder from './components/profileorder';
+import AdminLayout from './adminlayout';
+import AdminDashboard from './admindashboard';
+import Layout from './adminlayout';
+import AdminProducts from './adminproducts';
+import CustomerPage from './admincustomer';
+import AdminCustomers from './admincustomer';
+import AdminOrders from './adminorders';
 
 
 
@@ -64,6 +67,14 @@ function App() {
         <Route exact path="/navCategory3" element={<NavCategory3/>}/>
         <Route exact path="/payment" element={<PaymentPage/>}/>
         <Route exact path="/done" element={<PaymentDone/>}/>
+        <Route path="/admin" element={<Layout/>}>
+        <Route index path="/admin/dashboard" element={<AdminDashboard/>}/>
+        <Route path="/admin/products" element={<AdminProducts/>}/>
+        <Route path="/admin/customers" element={<AdminCustomers/>}/>
+        <Route path="/admin/orders" element={<AdminOrders/>}/>
+        
+        </Route>
+        
         
        
        

@@ -30,10 +30,20 @@ const Login = () => {
             formErrors.password = "Enter Password";
         }
         setError(formErrors);
+
         if (Object.keys(formErrors).length === 0) {
-            console.log(formData);
-            navigate('/navCategory');
-          
+            // Define admin credentials
+            const adminCredentials = {
+                email: 'admin@gmail.com',
+                password: 'admin123'
+            };
+
+            // Check user credentials
+            if (formData.email === adminCredentials.email && formData.password === adminCredentials.password) {
+                navigate('/admin/dasboard'); // Navigate to the admin page
+            } else {
+                navigate('/navCategory'); // Navigate to the normal user page
+            }
         }
     };
 
@@ -112,7 +122,7 @@ const Login = () => {
             <div style={styles.container}>
                 <h1 style={styles.header}>Login</h1>
                 <form onSubmit={handleSubmit}>
-                    <label style={styles.label}>UserName</label>
+                    <label style={styles.label}>Email</label>
                     <input
                         type="email"
                         placeholder="Enter Email"
@@ -132,8 +142,15 @@ const Login = () => {
                         style={styles.input}
                     />
                     {error.password && <p style={styles.error}>{error.password}</p>}
-                    <br></br><br></br>
-                    <button type="submit" style={styles.button}>Login</button>
+                    <br /><br />
+                    <button
+                        type="submit"
+                        style={styles.button}
+                        onMouseOver={(e) => e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor}
+                        onMouseOut={(e) => e.currentTarget.style.backgroundColor = styles.button.backgroundColor}
+                    >
+                        Login
+                    </button>
                 </form>
                 <div style={styles.signupLink}>
                     <p>Don't have an account? <Link to="/signup" style={styles.link}>Sign Up</Link></p>
@@ -141,6 +158,6 @@ const Login = () => {
             </div>
         </div>
     );
-}
+};
 
 export default Login;
