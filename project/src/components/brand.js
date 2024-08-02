@@ -1,4 +1,3 @@
-// BrandPage.js
 import React, { useState } from 'react';
 import { FaHeart, FaShoppingCart } from 'react-icons/fa';
 import './brand.css';
@@ -57,8 +56,23 @@ const brandItems = {
 const Brand = () => {
   const [selectedBrand, setSelectedBrand] = useState('disney');
 
+  const handleBuy = (product) => {
+    if (window.confirm(`Are you sure you want to buy ${product.name}?`)) {
+      // Add your buy logic here
+      // For example, add the product to the cart
+      handleAddToCart(product);
+      // Redirect to the address page
+      window.location.href = '/address';
+    }
+  };
+
+  const handleAddToCart = (product) => {
+    // Your logic to add the product to the cart
+    console.log(`Product added to cart: ${product.name}`);
+  };
+
   return (
-    <div className="product-page" style={{backgroundColor:"#c3f7f3"}}>
+    <div className="product-page" style={{ backgroundColor: "#c3f7f3" }}>
       <h1>Filter by Brand</h1>
       <div className="category-links">
         <button
@@ -89,9 +103,7 @@ const Brand = () => {
             <div className="product-actions">
               <FaHeart className="icon" />
               <FaShoppingCart className="icon" />
-              <Link to="/payment">
-              <button className="buy-button">Buy</button>
-              </Link>
+              <button className="buy-button" onClick={() => handleBuy(item)}>Buy</button>
             </div>
           </div>
         ))}
@@ -101,3 +113,4 @@ const Brand = () => {
 };
 
 export default Brand;
+    

@@ -1,4 +1,3 @@
-// AgePage.js
 import React, { useState } from 'react';
 import { FaHeart, FaShoppingCart } from 'react-icons/fa';
 import './age.css';
@@ -58,6 +57,20 @@ const ageItems = {
 const Age = () => {
   const [selectedAge, setSelectedAge] = useState('0-3');
 
+  const handleBuy = (product) => {
+    if (window.confirm(`Are you sure you want to buy ${product.name}?`)) {
+      // Add your buy logic here
+      handleAddToCart(product);
+      // alert(`You have bought ${product.name}!`);
+      window.location.href = '/address';
+    }
+  };
+
+  const handleAddToCart = (product) => {
+    // Logic to add the product to the cart
+    console.log(`${product.name} added to cart.`);
+  };
+
   return (
     <div className="product-page">
       <h1>Filter by Age</h1>
@@ -90,9 +103,7 @@ const Age = () => {
             <div className="product-actions">
               <FaHeart className="icon" />
               <FaShoppingCart className="icon" />
-              <Link to="/payment">
-              <button className="buy-button">Buy</button>
-              </Link>
+              <button className="buy-button" onClick={() => handleBuy(item)}>Buy</button>
             </div>
           </div>
         ))}

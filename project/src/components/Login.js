@@ -40,7 +40,7 @@ const Login = () => {
 
             // Check user credentials
             if (formData.email === adminCredentials.email && formData.password === adminCredentials.password) {
-                navigate('/admin/dasboard'); // Navigate to the admin page
+                navigate('/admin/dashboard'); // Navigate to the admin page
             } else {
                 navigate('/navCategory'); // Navigate to the normal user page
             }

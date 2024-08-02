@@ -1,46 +1,9 @@
-.center-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-   
-   
-   
-}
-.back{
-    display: flex;
-    background-color: #c3f7f3;
-    height: 100vh;
-    width: 100%;
-    padding-bottom: 95px;
-}
-
-.first-container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #098b81;
-    max-width: 500px;
-    width: 100%;
-    margin-top: 50px;
-    margin-left: 500px;
-   
-}
-
-.first-payment-methods {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.first-payment-methods h2 {
-    margin-bottom: 10px;
-    color: #33c3f0;
-}
-
 .first-methods {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
+    gap: 200px; 
+     
 }
 
 .first-method {
@@ -48,9 +11,14 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     cursor: pointer;
-    flex: 1;
     margin: 0 5px;
     text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.first-method input[type="radio"] {
+    margin-right: 10px;
 }
 
 .first-method.first-active {
@@ -58,75 +26,14 @@
     color: #33c3f0;
 }
 
-.first-payment-form, .first-net-banking-content, .first-paypal-content {
-    display: flex;
-    flex-direction: column;
-}
-
-.first-payment-form h2, .first-net-banking-content h2, .first-paypal-content h2 {
-    margin-bottom: 10px;
-    color: #33c3f0;
-}
-
-.first-payment-form label {
-    margin-top: 10px;
-    color: #555;
-}
-
-.first-payment-form input {
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.first-card-details {
-    display: flex;
-    justify-content: space-between;
-}
-
-.first-card-details div {
-    flex: 1;
-}
-
-.first-card-details div:first-child {
-    margin-right: 10px;
-}
-
-.first-payment-form button {
-    padding: 10px;
-    margin-top: 20px;
-    background-color: #33c3f0;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.first-payment-form button:hover {
-    background-color: #28a0d8;
-}
-
-.first-terms {
-    display: flex;
-    align-items: center;
-    
-}
-
-.first-terms input {
-    margin-right: 10px;
-}
-
-.first-terms label {
-    color: #555;
-}
-
 @media (max-width: 768px) {
     .first-methods {
         flex-direction: column;
+        align-items: stretch;
     }
 
     .first-method {
         margin: 5px 0;
+        width: 100%;
     }
 }

@@ -34,12 +34,22 @@ import CustomerPage from './admincustomer';
 import AdminCustomers from './admincustomer';
 import AdminOrders from './adminorders';
 
+import React, { useState } from 'react';
+import AddressPage from './components/address';
+import OrderSummaryPage from './components/ordersummary';
+import CartSummary from './components/ordersummary';
+import CommonNavbar from './components/commonNavbar';
+import Footer from './components/footer';
+import FeedbackPage from './components/feedback';
+
 
 
 
 
 
 function App() {
+  const [cart, setCart] = useState([]);
+  const [wishlist, setWishlist] = useState([]);
   return (
     <div className="App">
      <Router>
@@ -73,13 +83,19 @@ function App() {
         <Route path="/admin/customers" element={<AdminCustomers/>}/>
         <Route path="/admin/orders" element={<AdminOrders/>}/>
         
+        
+      
         </Route>
+        <Route path="/address" element={<AddressPage/>}/>
+        <Route path="/ordersummary" element={<CartSummary/>}/>
+        <Route path="/commonnav" element={<CommonNavbar/>}/>
+        <Route path="/feedback" element={<FeedbackPage/>}/>
         
         
        
        
         
-        
+       
       </Routes>
     </Router>
      

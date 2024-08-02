@@ -38,32 +38,32 @@ const CardGallery = () => {
       <ActionAreaCard
         image="https://www.toymarche.com/s/5f447e14285691dcc9bfcdf2/64399b009c171c604cf08946/102-480x480.png"
         alt="Product 1"
-        link="/navcategory"
+        link="/login"
       />
       <ActionAreaCard
         image="https://www.toymarche.com/s/5f447e14285691dcc9bfcdf2/64399b1c1c63e660124a0fb2/100-480x480.png"
         alt="Product 2"
-        link="/navcategory"
+        link="/login"
       />
       <ActionAreaCard
         image="https://www.toymarche.com/s/5f447e14285691dcc9bfcdf2/6439a6a359c25f1bb758abec/category-thumbnails-9--480x480.png"
         alt="Product 3"
-        link="/navcategory"
+        link="/login"
       />
       <ActionAreaCard
         image="https://www.toymarche.com/s/5f447e14285691dcc9bfcdf2/64399b3a1c63e660124a11ac/98-480x480.png"
         alt="Product 4"
-        link="/navcategory"
+        link="/login"
       />
       <ActionAreaCard
         image="https://www.toymarche.com/s/5f447e14285691dcc9bfcdf2/6439a6098943cbba27ef31b3/category-thumbnails-7--480x480.png"
         alt="Product 4"
-        link="/navcategory"
+        link="/login"
       />
       <ActionAreaCard
         image="https://www.toymarche.com/s/5f447e14285691dcc9bfcdf2/6439a64fc3695eb9c4a71c56/category-thumbnails-8--480x480.png"
         alt="Product 4"
-        link="/navcategory"
+        link="/login"
       />
     </div>
   );

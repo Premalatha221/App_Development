@@ -1,4 +1,4 @@
-// src/components/AdminProducts.js
+
 import React, { useState } from 'react';
 
 const initialProducts = [
@@ -40,7 +40,7 @@ const AdminProducts = () => {
       display: 'block',
       margin: '10px 0',
       padding: '10px',
-      width: 'calc(100% - 22px)', // Adjust for padding
+      width: 'calc(100% - 22px)', 
     },
     button: {
       padding: '10px',

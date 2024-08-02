@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
-    <Link to="/navcategory">
+    <Link to="/login">
     <div className="home">
       <Carousel>
         <Carousel.Item>
