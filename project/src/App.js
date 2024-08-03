@@ -1,20 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
-
 import { BrowserRouter as Router, Route, Routes,Link } from 'react-router-dom';
-
-
-
 import Homepage from './components/HomePage';
 import Signup from './components/Register'
 import Login from './components/Login';
 import TermsAndConditions from './components/terms';
-
 import Contact from './components/contact';
 import PrivacyPolicy from './components/privacy';
 import FAQ from './components/faq';
 import NavCategory from './components/navCategory';
-
 import Brand from './components/brand';
 import Age from './components/age';
 import NavCategory2 from './components/navcategory2';
@@ -33,20 +27,14 @@ import AdminProducts from './adminproducts';
 import CustomerPage from './admincustomer';
 import AdminCustomers from './admincustomer';
 import AdminOrders from './adminorders';
-
 import React, { useState } from 'react';
 import AddressPage from './components/address';
 import OrderSummaryPage from './components/ordersummary';
 import CartSummary from './components/ordersummary';
-import CommonNavbar from './components/commonNavbar';
 import Footer from './components/footer';
 import FeedbackPage from './components/feedback';
-
-
-
-
-
-
+import WishlistPage from './components/wishlist';
+import CommonNav from './components/commonNav';
 function App() {
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
@@ -87,23 +75,12 @@ function App() {
       
         </Route>
         <Route path="/address" element={<AddressPage/>}/>
-        <Route path="/ordersummary" element={<CartSummary/>}/>
-        <Route path="/commonnav" element={<CommonNavbar/>}/>
+        <Route path="/ordersummary" element={<OrderSummaryPage/>}/>
+        <Route path="/commonnav" element={<CommonNav/>}/>
         <Route path="/feedback" element={<FeedbackPage/>}/>
-        
-        
-       
-       
-        
        
       </Routes>
-    </Router>
-     
-      
-   
-    
-      
-        
+    </Router>    
     </div>
   );
 }
