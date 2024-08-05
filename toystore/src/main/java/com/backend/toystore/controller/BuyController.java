@@ -3,17 +3,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.backend.toystore.model.Buy;
 import com.backend.toystore.service.BuyService;
 
 @RestController
+@RequestMapping("/api/buy")
 public class BuyController{
     @Autowired
     BuyService bs;
 
-    @PostMapping("/post/buy")
+    @PostMapping
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<Buy> addElements(@RequestBody Buy b) {
         Buy bst = bs.create(b);
         return new ResponseEntity<>(bst, HttpStatus.CREATED);

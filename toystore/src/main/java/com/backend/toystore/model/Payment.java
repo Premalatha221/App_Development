@@ -1,6 +1,9 @@
 package com.backend.toystore.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -72,6 +75,7 @@ public class Payment {
     @OneToOne
     @JsonBackReference
     @JoinColumn(name = "buy_aid", referencedColumnName = "aid", nullable = false)
+    
     private Buy buy;
 
     public Buy getBuy() {
@@ -81,5 +85,19 @@ public class Payment {
     public void setBuy(Buy buy) {
         this.buy = buy;
     }
+    ///payment to order
+    @OneToOne(mappedBy = "payment",cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    @JsonIgnore
+    private Orders orders;
+
+    public Orders getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Orders orders) {
+        this.orders = orders;
+    }
+
     
 }

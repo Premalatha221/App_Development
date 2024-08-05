@@ -1,6 +1,7 @@
 package com.backend.toystore.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -89,8 +90,9 @@ public class Buy {
         this.state = state;
     }
     //product to buy
-   @OneToOne
+     @OneToOne
     @JsonBackReference
+   
     @JoinColumn(name = "product_id", referencedColumnName = "productId", nullable = false)
     private Product product;
 
@@ -105,6 +107,7 @@ public void setProduct(Product product) {
         // Buy to Payment relationship
         @OneToOne(mappedBy = "buy", cascade = CascadeType.ALL, orphanRemoval = true)
         @JsonManagedReference
+        @JsonIgnore
         private Payment payment;
     
         public Payment getPayment() {
