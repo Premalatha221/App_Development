@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import logo from '../assets/images/logo.avif';
-import baby from '../assets/images/baby.jpg'; // Ensure the correct path to your profile photo
+import baby from '../assets/images/baby.jpg'; 
 
 const ProfileWish = () => {
   return (

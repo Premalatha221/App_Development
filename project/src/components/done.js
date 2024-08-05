@@ -2,7 +2,8 @@ import React from 'react';
 
 import './done.css';
 import { Link } from 'react-router-dom';
-import CommonNavbar from './commonNavbar';
+
+import CommonNav from './commonNav';
 
 
 function PaymentDone() {
@@ -12,7 +13,7 @@ function PaymentDone() {
 
   return (
     <div>
-      <CommonNavbar/>
+      <CommonNav/>
     <div className="payment-done-container">
       <div className="payment-done-box">
         <div className="checkmark">✅</div>

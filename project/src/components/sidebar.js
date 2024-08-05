@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import baby from '../assets/images/baby.jpg'; // Ensure the correct path to your profile photo
+import baby from '../assets/images/baby.jpg'; 
 
 const SidebarLinks = () => {
   return (
@@ -171,7 +171,7 @@ const SidebarLinks = () => {
         <i className="fas fa-tachometer-alt"></i>
         <span className="link-text">Dashboard</span>
       </Link>
-      <Link to="/profilewish" className="sidebar-link">
+      <Link to="/wishlist" className="sidebar-link">
         <i className="fas fa-heart"></i>
         <span className="link-text">Wishlist</span>
       </Link>

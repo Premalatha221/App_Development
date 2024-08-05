@@ -35,6 +35,7 @@ import Footer from './components/footer';
 import FeedbackPage from './components/feedback';
 import WishlistPage from './components/wishlist';
 import CommonNav from './components/commonNav';
+import OrderTrackingPage from './components/orderTracking';
 function App() {
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
@@ -78,6 +79,8 @@ function App() {
         <Route path="/ordersummary" element={<OrderSummaryPage/>}/>
         <Route path="/commonnav" element={<CommonNav/>}/>
         <Route path="/feedback" element={<FeedbackPage/>}/>
+        <Route path="/wishlist" element={<WishlistPage/>}/>
+        <Route path="/tracking" element={<OrderTrackingPage/>}/>
        
       </Routes>
     </Router>    

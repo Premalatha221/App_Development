@@ -279,7 +279,7 @@ const ProfileBoard = () => {
           <i className="fas fa-tachometer-alt"></i>
           <span className="link-text">Dashboard</span>
         </Link>
-        <Link to="/profilewish" className="sidebar-link">
+        <Link to="/wishlist" className="sidebar-link">
           <i className="fas fa-heart"></i>
           <span className="link-text">Wishlist</span>
         </Link>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CommonNavbar from './commonNavbar';
+import CommonNav from './commonNav';
 
 const AddressPage = () => {
   
@@ -81,7 +81,7 @@ const AddressPage = () => {
 
   const handleDeliverHere = (address) => {
     localStorage.setItem('selectedAddress', JSON.stringify(address));
-    navigate('/ordersummary');
+    navigate('/payment');
   };
 
   return (
@@ -90,7 +90,7 @@ const AddressPage = () => {
       display: 'flex',
       flexDirection: 'column'
     }}>
-      <CommonNavbar />
+      <CommonNav/>
       <div style={{
         flex: 1,
         backgroundImage: 'url("https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148901163.jpg?w=996&t=st=1722529175~exp=1722529775~hmac=9a176fcd093ed454480b436202d8d21fae8e6caa4bf84d01b78c3623b99781de")',

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
-import CommonNavbar from './commonNavbar';
+import CommonNav from './commonNav';
+import { Link } from 'react-router-dom';
 
 const FeedbackPage = () => {
   const [rating, setRating] = useState(0);
@@ -17,7 +18,7 @@ const FeedbackPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle the submission logic here, such as sending data to a server
+    
     console.log('Feedback submitted:', { rating, comments });
     setSubmitted(true);
   };
@@ -30,20 +31,20 @@ const FeedbackPage = () => {
           justifyContent: 'center',
           alignItems: 'center',
           minHeight: '100vh',
-          backgroundImage: 'url("https://img.freepik.com/premium-photo/top-view-kids-toys-frame-wooden-background-with-copy-space-educational-development-toy_427957-7259.jpg")',
+          // backgroundImage: 'url("https://img.freepik.com/premium-photo/top-view-kids-toys-frame-wooden-background-with-copy-space-educational-development-toy_427957-7259.jpg")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
         }}
       >
-        <h2>Thank you for your feedback!</h2>
+        {/* <h2>Thank you for your feedback!</h2> */}
       </div>
     );
   }
 
   return (
     <div>
-        <CommonNavbar/>
+        <CommonNav/>
     <div
       style={{
         display: 'flex',
@@ -90,7 +91,7 @@ const FeedbackPage = () => {
             }}
           />
         </div>
-        <button
+       <Link to ="/"> <button
           type="submit"
           style={{
             padding: '10px 20px',
@@ -102,7 +103,7 @@ const FeedbackPage = () => {
           }}
         >
           Submit Feedback
-        </button>
+        </button></Link>
       </form>
     </div>
     </div>

@@ -1,9 +1,9 @@
-.product-page {
+
+   .product-page {
     text-align: center;
     padding: 20px;
     background-color: #c3f7f3;
   }
-  
   
   h1 {
     margin-bottom: 20px;
@@ -44,8 +44,12 @@
     padding: 20px;
     margin: 10px;
     width: 300px;
+    height: 500px; /* Fixed height */
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   
   .product-card:hover {
@@ -54,7 +58,8 @@
   
   .product-image {
     width: 100%;
-    height: auto;
+    height: 250px; 
+    object-fit: cover; 
     border-radius: 8px;
   }
   
@@ -81,6 +86,15 @@
     transition: color 0.3s;
     font-size: 30px;
   }
+  .icon {
+    cursor: pointer;
+    font-size: 24px;
+    transition: color 0.3s ease;
+  }
+  
+  .icon.liked {
+    color: red;
+  }
   
   .icon:hover {
     color: #e1c700;
@@ -99,5 +113,18 @@
   
   .buy-button:hover {
     background-color: #e1c700;
+  }
+  
+  .notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color:red;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
   }
   

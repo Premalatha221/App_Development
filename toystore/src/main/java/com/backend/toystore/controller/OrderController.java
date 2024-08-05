@@ -1,5 +1,7 @@
-
 package com.backend.toystore.controller;
+
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,42 +15,46 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.toystore.model.User;
-import com.backend.toystore.service.UserService;
+import com.backend.toystore.model.Orders;
+import com.backend.toystore.service.OrderService;
+
+
+
+
 @RestController
-public class UserController {
+public class OrderController {
     @Autowired
-    UserService ev;
-    @PostMapping("/post/user")
-    public ResponseEntity<User>addelements(@RequestBody User m)
+    OrderService os;
+    @PostMapping("/post/orders")
+    public ResponseEntity<Orders>addelements(@RequestBody Orders o)
     {
-        User evt=ev.create(m);
-        return new ResponseEntity<>(evt,HttpStatus.CREATED);
+        Orders ost=os.create(o);
+        return new ResponseEntity<>(ost,HttpStatus.CREATED);
     }
-    @GetMapping("/get/user")
-    public ResponseEntity<List<User>> showinfo()
+    @GetMapping("/get/orders")
+    public ResponseEntity<List<Orders>> showinfo()
     {
-        return new ResponseEntity<>(ev.getAll(),HttpStatus.OK);
+        return new ResponseEntity<>(os.getAll(),HttpStatus.OK);
     }
-    @GetMapping("/get/user/{uid}")
-    public ResponseEntity<User> getById(@PathVariable Integer uid)
+    @GetMapping("/get/orders/{oid}")
+    public ResponseEntity<Orders> getById(@PathVariable Integer oid)
     {
-        User obj=ev.getId(uid);
+        Orders obj=os.getId(oid);
         return new ResponseEntity<>(obj,HttpStatus.OK);
     }
-    @PutMapping("/put/{uid}")
-    public ResponseEntity<User> putMethodName(@PathVariable("uid") int uid, @RequestBody User e) {
-        if(ev.update(uid,e) == true)
+    @PutMapping("/put/{oid}")
+    public ResponseEntity<Orders> putMethodName(@PathVariable("oid") int oid, @RequestBody Orders o) {
+        if(os.update(oid,o) == true)
         {
-            return new ResponseEntity<>(e,HttpStatus.OK);
+            return new ResponseEntity<>(o,HttpStatus.OK);
         }
         
         return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
     }
-    @DeleteMapping("/delete/{uid}")
-    public ResponseEntity<Boolean> delete(@PathVariable("uid") int uid)
+    @DeleteMapping("/delete/{oid}")
+    public ResponseEntity<Boolean> delete(@PathVariable("oid") int oid)
     {
-        if(ev.delete(uid) == true)
+        if(os.delete(oid) == true)
         {
             return new ResponseEntity<>(true,HttpStatus.OK);
         }

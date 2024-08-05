@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CommonNavbar from './commonNavbar';
+
+import CommonNav from './commonNav';
 
 const PaymentPage = () => {
   const [paymentMethod, setPaymentMethod] = useState('');
@@ -51,7 +52,7 @@ const PaymentPage = () => {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      <CommonNavbar />
+      <CommonNav/>
       <div
         style={{
           display: 'flex',

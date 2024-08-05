@@ -59,7 +59,7 @@ const Navbar = () => {
                 <ul className="dropdown-menu">
                   <li><Link to="/navcategory2">Disney</Link></li>
                   <li><Link to="/navcategory2">Barbie</Link></li>
-                  <li><Link to="/navcategory2">Hot wheel</Link></li>
+                  <li><Link to="/navcategory2">Marvel</Link></li>
                 </ul>
               )}
             </div>
