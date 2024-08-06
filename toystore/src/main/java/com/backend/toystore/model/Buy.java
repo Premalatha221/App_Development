@@ -92,7 +92,7 @@ public class Buy {
     //product to buy
      @OneToOne
     @JsonBackReference
-   
+  
     @JoinColumn(name = "product_id", referencedColumnName = "productId", nullable = false)
     private Product product;
 

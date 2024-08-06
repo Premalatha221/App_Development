@@ -2,6 +2,7 @@ package com.backend.toystore.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -42,14 +43,15 @@ public class Orders {
     @OneToOne
     @JsonBackReference
     @JoinColumn(name = "payment_id", referencedColumnName = "paymentId", nullable = false)
+    
     private Payment payment;
     
-    public Payment getPayment() {
-        return payment;
-    }
-    public void setPayment(Payment payment) {
-        this.payment = payment;
-    }
+    // public Payment getPayment() {
+    //     return payment;
+    // }
+    // public void setPayment(Payment payment) {
+    //     this.payment = payment;
+    // }
 
     
     
