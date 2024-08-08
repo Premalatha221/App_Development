@@ -1,4 +1,4 @@
-// package com.tech.course_mania.config;
+// package com.backend.toystore.config;
 
 // import org.springframework.context.annotation.Configuration;
 // import org.springframework.lang.NonNull;

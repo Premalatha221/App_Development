@@ -2,20 +2,20 @@ import { useState } from "react";
 import React from "react";
 import { useNavigate } from "react-router-dom"; 
 import { Link } from "react-router-dom";
-
+import axios from 'axios';
 const Signup = () => {
     const [formData, setFormData] = useState({
-        name: '',
+        //name: '',
         email: '',
-        password: '',
-        confirmPassword: ''
+        password: ''
+        //confirmPassword: ''
     });
 
     const [error, setError] = useState({
-        name: "",
+        //name: "",
         email: "",
-        password: "",
-        confirmPassword: ""
+        password: ""
+        //confirmPassword: ""
     });
 
     const navigate = useNavigate(); 
@@ -25,7 +25,7 @@ const Signup = () => {
         setError({ ...error, [name]: "" });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const formErrors = {};
 
@@ -45,7 +45,20 @@ const Signup = () => {
         }
 
         setError(formErrors);
-
+        const newData= await axios
+        .post("http://127.0.0.1:8080/api/users/createUser",{
+            uid: 0,
+            email: formData.email,
+            password:formData.password,
+            // confirmPassword:formData.confirmPassword,
+            roles: "USER",
+        })
+        .then((response)=>{
+            console.log(response);
+        })
+        .catch((error)=>{
+            console.error(error);
+        });
        
         if (Object.keys(formErrors).length === 0) {
             console.log(formData);

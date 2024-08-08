@@ -1,6 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -20,7 +21,7 @@ const Login = () => {
         setError({ ...error, [name]: "" });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const formErrors = {};
         if (formData.email.trim() === "") {
@@ -31,21 +32,43 @@ const Login = () => {
         }
         setError(formErrors);
 
-        if (Object.keys(formErrors).length === 0) {
-            // Define admin credentials
-            const adminCredentials = {
-                email: 'admin@gmail.com',
-                password: 'admin123'
-            };
-
-            // Check user credentials
-            if (formData.email === adminCredentials.email && formData.password === adminCredentials.password) {
-                navigate('/admin/dashboard'); // Navigate to the admin page
-            } else {
-                navigate('/navCategory'); // Navigate to the normal user page
-            }
+        try{
+            const response=await axios.post(
+                "http://127.0.0.1:8080/api/auth/authenticate",
+                formData
+            );
+            console.log(response);
+            localStorage.setItem("token",response.data.token);
+            localStorage.setItem("role",response.data.role);
+            const role=localStorage.getItem("role");
+            if(role==="ADMIN")
+                {
+                    navigate("/admin");
+                }
+                else{
+                    navigate("/navCategory");
+                }
+            
+        } catch(error)
+        {
+            console.error(error);
         }
-    };
+
+        // if (Object.keys(formErrors).length === 0) {
+        //     // Define admin credentials
+        //     const adminCredentials = {
+        //         email: 'admin@gmail.com',
+        //         password: 'admin123'
+        //     };
+
+            // // Check user credentials
+            // if (formData.email === adminCredentials.email && formData.password === adminCredentials.password) {
+            //     navigate('/admin/dashboard'); // Navigate to the admin page
+            // } else {
+            //     navigate('/navCategory'); // Navigate to the normal user page
+            // }
+        // }
+    }
 
     // Inline styles
     const styles = {

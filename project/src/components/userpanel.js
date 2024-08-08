@@ -110,6 +110,8 @@ const UserPanel = () => {
 
     const handleLogout = () => {
         console.log("User logged out");
+        // localStorage.removeItem("token");
+        // navigate("/");
     };
 
     const styles = {
