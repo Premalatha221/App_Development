@@ -1,0 +1,91 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: #c3f7f3;
+  height: 75px;
+  padding: 0 20px;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  height: 50px;
+  margin-right: 10px;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-right a {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  color: black;
+  text-decoration: none;
+  font-size: 19px;
+}
+
+.navbar-icon {
+  margin-right: 8px;
+  color: black;
+}
+
+/* New section for the navbar below */
+.navbar-below {
+  width: 100%;
+  
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 10px;
+    height: auto;
+  }
+
+  .navbar-left {
+    margin-bottom: 10px;
+    justify-content: center;
+  }
+
+  .navbar-right {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar-right a {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .navbar-below {
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .navbar {
+    padding: 10px;
+  }
+
+  .navbar-right {
+    flex-direction: column;
+  }
+
+  .navbar-right a {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .navbar-below {
+    padding: 10px;
+  }
+}
