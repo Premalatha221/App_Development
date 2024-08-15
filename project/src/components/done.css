@@ -1,56 +1,60 @@
-/* done.css */
-
 .payment-done-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-image: url("https://i.pinimg.com/736x/f0/f7/3a/f0f73acfab304ee0c827219ec74b7aa6.jpg"); /* Replace with your preferred background image URL */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    box-shadow: 0 0 90px #c3f7f3; /* Corrected property */
-    width: 100%; /* Adjust width to cover the viewport */
-    padding: 20px; /* Add some padding to avoid the content touching the edges */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+  perspective: 1000px; /* Perspective for the 3D effect */
+}
+
+.payment-done-box {
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow to give depth */
+  transform: rotateX(10deg) rotateY(0deg); /* Rotate to add 3D effect */
+  transition: transform 0.3s, box-shadow 0.3s, background 1s; /* Smooth transition */
+  animation: colorShift 5s infinite; /* Add animation for color shift */
+}
+
+@keyframes colorShift {
+  0% {
+    background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
   }
-  
-  .payment-done-box {
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 300px;
-    margin: 0 auto; /* Center the box horizontally */
+  50% {
+    background: linear-gradient(135deg, #e0e0e0, #f0f0f0);
   }
-  
-  .checkmark {
-    font-size: 40px;
-    color: #12df19;
-    margin-bottom: 20px;
+  100% {
+    background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
   }
-  
-  .payment-done-box h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .payment-done-box p {
-    font-size: 16px;
-    margin-bottom: 20px;
-    color: #666;
-  }
-  
-  .payment-done-box button {
-    padding: 10px 20px;
-    background-color: #c3f7f3;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .payment-done-box button:hover {
-    background-color: #a1d6d0; /* Slightly darker shade for hover effect */
-  }
-  
+}
+
+.payment-done-box:hover {
+  transform: rotateX(0deg) rotateY(10deg); /* Adjust rotation on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+.checkmark {
+  font-size: 50px;
+}
+
+.payment-done-box img {
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0;
+}
+
+button {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* button:hover {
+  background-color: #218838;
+} */

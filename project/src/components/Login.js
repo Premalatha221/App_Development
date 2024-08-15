@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -12,8 +12,17 @@ const Login = () => {
         email: "",
         password: "",
     });
-
+    const [showSnackbar, setShowSnackbar] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState("");
+    const [snackbarType, setSnackbarType] = useState("success");
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            navigate("/navCategory"); 
+        }
+    }, [navigate]);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -31,46 +40,38 @@ const Login = () => {
             formErrors.password = "Enter Password";
         }
         setError(formErrors);
+        localStorage.setItem("email", formData.email);
+        localStorage.setItem("password", formData.password);
+        if (Object.keys(formErrors).length === 0) {
+            try {
+                const response = await axios.post(
+                    "http://127.0.0.1:8080/api/auth/authenticate",
+                    formData
+                );
+                
+                localStorage.setItem("token", response.data.token);
+                localStorage.setItem("role", response.data.role); 
+                setSnackbarMessage("You have successfully logged in");
+                setSnackbarType("success");
+                setShowSnackbar(true);
 
-        try{
-            const response=await axios.post(
-                "http://127.0.0.1:8080/api/auth/authenticate",
-                formData
-            );
-            console.log(response);
-            localStorage.setItem("token",response.data.token);
-            localStorage.setItem("role",response.data.role);
-            const role=localStorage.getItem("role");
-            if(role==="ADMIN")
-                {
-                    navigate("/admin");
-                }
-                else{
-                    navigate("/navCategory");
-                }
-            
-        } catch(error)
-        {
-            console.error(error);
+                setTimeout(() => {
+                    const userRole = response.data.role;
+                    if (userRole === 'ADMIN') {
+                        navigate("/admin/profile"); 
+                    } else {
+                        navigate("/navCategory"); 
+                    }
+                }, 1000); 
+            } catch (error) {
+                console.error(error);
+                setSnackbarMessage("Incorrect username or password");
+                setSnackbarType("danger");
+                setShowSnackbar(true);
+            }
         }
+    };
 
-        // if (Object.keys(formErrors).length === 0) {
-        //     // Define admin credentials
-        //     const adminCredentials = {
-        //         email: 'admin@gmail.com',
-        //         password: 'admin123'
-        //     };
-
-            // // Check user credentials
-            // if (formData.email === adminCredentials.email && formData.password === adminCredentials.password) {
-            //     navigate('/admin/dashboard'); // Navigate to the admin page
-            // } else {
-            //     navigate('/navCategory'); // Navigate to the normal user page
-            // }
-        // }
-    }
-
-    // Inline styles
     const styles = {
         outerContainer: {
             display: "flex",
@@ -137,11 +138,55 @@ const Login = () => {
             color: "#007bff",
             textDecoration: "none",
             fontWeight: "bold",
+        },
+        snackbar: {
+            width: '300px',
+            backgroundColor: '#FFDD01',
+            color: 'black',
+            textAlign: 'center',
+            borderRadius: '4px',
+            padding: '10px',
+            position: 'fixed',
+            zIndex: '1',
+            right: '30px',
+            bottom: '30px',
+            fontSize: '17px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+        },
+        closeButton: {
+            marginLeft: '10px', // Adjust spacing as needed
+            cursor: 'pointer',
+            backgroundColor: 'transparent',
+            border: 'none',
+            color: 'black',
+            fontSize: '10px', // Set the font size to 10px for the close button
+            lineHeight: '1', // Ensure the button height is aligned with the text
+            display: 'flex',
+            alignItems: 'center',
         }
     };
 
     return (
         <div style={styles.outerContainer}>
+            {showSnackbar && (
+                <div
+                    className={`alert alert-${snackbarType} alert-dismissible fade show`}
+                    role="alert"
+                    style={styles.snackbar}
+                >
+                    {snackbarMessage}
+                    <button
+                        type="button"
+                        className="btn-close"
+                        style={styles.closeButton}
+                        onClick={() => setShowSnackbar(false)}
+                    >
+                        &times;
+                    </button>
+                </div>
+            )}
             <div style={styles.container}>
                 <h1 style={styles.header}>Login</h1>
                 <form onSubmit={handleSubmit}>

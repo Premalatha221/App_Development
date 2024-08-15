@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { FaHeart, FaShoppingCart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './age.css';
@@ -59,7 +59,15 @@ const Age = () => {
   const [wishlist, setWishlist] = useState(JSON.parse(localStorage.getItem('wishlist')) || []);
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
   const [notification, setNotification] = useState({ show: false, productName: '', type: '' });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+    console.log('Is logged in:', !!token); // Debug log
+  }, []);
 
   const handleAgeGroupChange = (ageGroup) => {
     setAgeGroup(ageGroup);
@@ -95,9 +103,14 @@ const Age = () => {
   };
 
   const handleBuy = (product) => {
-    if (window.confirm(`Are you sure you want to buy ${product.name}?`)) {
-      handleAddToCart(product);
-    }
+    if (isLoggedIn) {
+    console.log('Navigating to ordersummary page'); // Debug log
+  //   navigate('/ordersummary');
+   handleAddToCart(product);
+  } else {
+    console.log('Navigating to login page'); // Debug log
+    navigate('/login');
+  }
   };
 
   const showNotification = (productName, type) => {

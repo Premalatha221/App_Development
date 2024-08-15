@@ -36,6 +36,17 @@ import FeedbackPage from './components/feedback';
 import WishlistPage from './components/wishlist';
 import CommonNav from './components/commonNav';
 import OrderTrackingPage from './components/orderTracking';
+import Profile from './components/prof';
+import AdminProfile from './adminprofile';
+import AppInitializer from './components/AppIntializer';
+import GamesPage from './components/games';
+import EducationPage from './components/education';
+import DisneyPage from './components/disney';
+import MarvelPage from './components/marvel';
+import BarbiePage from './components/barbie';
+import Age0To3Page from './components/agezero';
+import Age4To6Page from './components/ageThree';
+import Age6To9Page from './components/agelast';
 function App() {
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
@@ -44,7 +55,7 @@ function App() {
      <Router>
      
       <Routes>
-       
+      
       <Route exact path="/" element={ <Homepage />}/>
         <Route exact path="/signup" element={<Signup/>} />
         <Route exact path="/login" element={<Login/>} />
@@ -71,7 +82,7 @@ function App() {
         <Route path="/admin/products" element={<AdminProducts/>}/>
         <Route path="/admin/customers" element={<AdminCustomers/>}/>
         <Route path="/admin/orders" element={<AdminOrders/>}/>
-        
+        <Route path="/admin/profile" element={<AdminProfile/>}/>
         
       
         </Route>
@@ -81,7 +92,16 @@ function App() {
         <Route path="/feedback" element={<FeedbackPage/>}/>
         <Route path="/wishlist" element={<WishlistPage/>}/>
         <Route path="/tracking" element={<OrderTrackingPage/>}/>
-       
+        <Route path="/prof" element={<Profile/>}/>
+        <Route path="/games" element={<GamesPage/>}/>
+        <Route path="/education" element={<EducationPage/>}/>
+        <Route path="/disney" element={<DisneyPage/>}/>
+        <Route path="/Marvel" element={<MarvelPage/>}/>
+        <Route path="/barbie" element={<BarbiePage/>}/>
+        <Route path="/agezero" element={<Age0To3Page/>}/>
+        <Route path="/agethree" element={<Age4To6Page/>}/>
+        <Route path="/agelast" element={<Age6To9Page/>}/>
+      
       </Routes>
     </Router>    
     </div>

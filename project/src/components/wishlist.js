@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import CommonNav from './commonNav';
+// Import the Nav component
 
 const WishlistPage = () => {
   const [wishlist, setWishlist] = useState([]);
@@ -18,13 +20,8 @@ const WishlistPage = () => {
   };
 
   const handleRemoveFromWishlist = (itemId) => {
-    // Remove item from wishlist
-    const updatedWishlist = wishlist.filter(item => item.id !== itemId);
-    
-    // Update local storage
+    const updatedWishlist = wishlist.filter(item => item.productId !== itemId);
     localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
-    
-    // Update state
     setWishlist(updatedWishlist);
   };
 
@@ -33,30 +30,33 @@ const WishlistPage = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <h1>Wishlist</h1>
-      {wishlist.length === 0 ? (
-        <div style={styles.emptyWishlist}>
-          <p>Your wishlist is empty</p>
-          <button onClick={handleContinueShopping} style={styles.continueButton}>Continue Shopping</button>
-        </div>
-      ) : (
-        <div style={styles.wishlistContainer}>
-          {wishlist.map((item) => (
-            <div key={item.id} style={styles.productCard}>
-              <img src={item.image} alt={item.name} style={styles.productImage} />
-              <div style={styles.cardContent}>
-                <h2 style={styles.productName}>{item.name}</h2>
-                <p style={styles.productPrice}>{item.price}</p>
-                <div style={styles.buttonContainer}>
-                  <button onClick={() => handleAddToCart(item)} style={styles.button}>Add to Cart</button>
-                  <button onClick={() => handleRemoveFromWishlist(item.id)} style={styles.button}>Remove</button>
+    <div>
+      <CommonNav/>
+      <div style={styles.container}>
+        <h1>Wishlist</h1>
+        {wishlist.length === 0 ? (
+          <div style={styles.emptyWishlist}>
+            <p>Your wishlist is empty</p>
+            <button onClick={handleContinueShopping} style={styles.continueButton}>Continue Shopping</button>
+          </div>
+        ) : (
+          <div style={styles.wishlistContainer}>
+            {wishlist.map((item) => (
+              <div key={item.productId} style={styles.productCard}>
+                <img src={item.imageUrl} alt={item.productName} style={styles.productImage} />
+                <div style={styles.cardContent}>
+                  <h2 style={styles.productName}>{item.productName}</h2>
+                  <p style={styles.productPrice}>₹ {item.productPrice}</p>
+                  <div style={styles.buttonContainer}>
+                    <button onClick={() => handleAddToCart(item)} style={styles.button}>Add to Cart</button>
+                    <button onClick={() => handleRemoveFromWishlist(item.productId)} style={styles.button}>Remove</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
@@ -111,27 +111,23 @@ const styles = {
     padding: '8px 16px',
     border: 'none',
     borderRadius: '4px',
-    backgroundColor: '#ffdd01',
-    color: 'black',
     cursor: 'pointer',
+    backgroundColor: '#007bff',
+    color: '#fff',
     fontSize: '0.9em',
-    transition: 'background-color 0.3s ease',
   },
   emptyWishlist: {
     textAlign: 'center',
-    marginTop: '20px',
   },
   continueButton: {
+    marginTop: '16px',
     padding: '8px 16px',
     border: 'none',
     borderRadius: '4px',
-    backgroundColor: '#28a745',
-    color: 'white',
     cursor: 'pointer',
-    fontSize: '1em',
-    transition: 'background-color 0.3s ease',
-    marginTop: '10px',
-  },
+    backgroundColor: '#28a745',
+    color: '#fff',
+  }
 };
 
 export default WishlistPage;

@@ -40,18 +40,12 @@ public class Orders {
     public void setStatus(String status) {
         this.status = status;
     }
-    @OneToOne
-    @JsonBackReference
-    @JoinColumn(name = "payment_id", referencedColumnName = "paymentId", nullable = false)
+    // @OneToOne
+    // @JsonBackReference
+    // @JoinColumn(name = "payment_id", referencedColumnName = "paymentId", nullable = false)
     
-    private Payment payment;
+    // private Payment payment;
     
-    // public Payment getPayment() {
-    //     return payment;
-    // }
-    // public void setPayment(Payment payment) {
-    //     this.payment = payment;
-    // }
 
     
     

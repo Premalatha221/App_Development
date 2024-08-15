@@ -2,6 +2,8 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import logo from './assets/images/logo.avif';
 import AdminSidebar from './adminsidebar';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import { Link } from 'react-router-dom';
 
 const AdminLayout = () => {
   const styles = {
@@ -46,7 +48,7 @@ const AdminLayout = () => {
     },
     icon: {
       fontSize: '30px',
-      color: 'white',
+      color: 'black',
     },
     sidebar: {
       width: '250px',
@@ -73,7 +75,7 @@ const AdminLayout = () => {
         </div>
         <div style={styles.links}>
           <a href="/navCategory" style={styles.link}>
-            <i className="fa fa-home" style={styles.icon}></i>
+           <Link to="/"><i className="fa fa-home" style={styles.icon}></i></Link> 
           </a>
         </div>
       </header>

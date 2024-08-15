@@ -1,9 +1,16 @@
-// src/components/AdminSidebar.js
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { FaTachometerAlt, FaBox, FaShoppingCart, FaUsers, FaChartBar, FaCog } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaTachometerAlt, FaBox, FaShoppingCart, FaUsers, FaSignOutAlt, FaUser } from 'react-icons/fa';
 
 const AdminSidebar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('name'); // Optional: remove other user-related data
+    navigate('/login'); // Redirect to login page after logout
+  };
+
   const styles = {
     sidebar: {
       width: '250px',
@@ -12,6 +19,7 @@ const AdminSidebar = () => {
       color: '#ecf0f1',
       display: 'flex',
       flexDirection: 'column',
+      justifyContent: 'space-between',
       padding: '20px',
       position: 'fixed',
     },
@@ -38,12 +46,30 @@ const AdminSidebar = () => {
       textDecoration: 'none',
       fontSize: '1rem',
     },
+    profile: {
+      paddingBottom: '20px',
+      borderBottom: '1px solid #7f8c8d',
+      marginBottom: '20px',
+    },
+    logoutButton: {
+      display: 'flex',
+      alignItems: 'center',
+      padding: '10px 0',
+      color: '#ecf0f1',
+      background: 'none',
+      border: 'none',
+      cursor: 'pointer',
+    },
   };
 
   return (
     <div style={styles.sidebar}>
-      
       <ul style={styles.navList}>
+        {/* Profile Section */}
+        <li style={styles.navItem}>
+          <FaUser style={styles.icon} />
+          <Link to="/admin/profile" style={styles.link}>Profile</Link>
+        </li>
         <li style={styles.navItem}>
           <FaTachometerAlt style={styles.icon} />
           <Link to="/admin/dashboard" style={styles.link}>Dashboard</Link>
@@ -60,10 +86,11 @@ const AdminSidebar = () => {
           <FaUsers style={styles.icon} />
           <Link to="/admin/customers" style={styles.link}>Customers</Link>
         </li>
-        
         <li style={styles.navItem}>
-          <FaCog style={styles.icon} />
-          <Link to="/admin/settings" style={styles.link}>Settings</Link>
+          <button style={styles.logoutButton} onClick={handleLogout}>
+            <FaSignOutAlt style={styles.icon} />
+            Logout
+          </button>
         </li>
       </ul>
     </div>

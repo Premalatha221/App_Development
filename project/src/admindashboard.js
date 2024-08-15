@@ -55,7 +55,7 @@ const AdminDashboard = () => {
     },
     chart: {
       width: '100%',
-      maxHeight: '400px',
+      maxHeight: '500px',
       borderRadius: '8px',
       boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
       backgroundColor: '#fff',
@@ -67,14 +67,15 @@ const AdminDashboard = () => {
     <div style={styles.container}>
       <h1>Dashboard</h1>
       <div style={styles.chartContainer}>
-        <div style={styles.chart}>
+        {/* <div style={styles.chart}>
           <h2>Sales Over Time</h2>
           <Line data={lineChartData} />
-        </div>
+        </div> */}
         <div style={styles.chart}>
           <h2>Inventory by Category</h2>
           <Bar data={barChartData} />
         </div>
+        <br></br>
         <div style={styles.chart}>
           <h2>Sales Distribution</h2>
           <Pie data={pieChartData} />

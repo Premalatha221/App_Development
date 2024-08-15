@@ -1,35 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CommonNav from './commonNav';
+import axios from 'axios';
+import CommonNav from './commonNav'; // Adjust the import path as needed
 
 const AddressPage = () => {
-  
   const [formData, setFormData] = useState({
     name: '',
     mobile: '',
     pincode: '',
     address: '',
     city: '',
-    state: ''
+    state: '',
+    email: ''
   });
 
-  const [addresses, setAddresses] = useState([
-    {
-      id: 1,
-      name: 'John Doe',
-      mobile: '1234567890',
-      pincode: '123456',
-      address: '123, Some Street, Some Area',
-      city: 'Some City',
-      state: 'Some State'
-    }
-  ]);
-
-  const [isEditing, setIsEditing] = useState(false);
-  const [editId, setEditId] = useState(null);
+  const [addresses, setAddresses] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [editingAddressId, setEditingAddressId] = useState(null);
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
+  const apiUrl = "http://127.0.0.1:8080/api/buy";
+  const token = localStorage.getItem('token');
+  const userEmail = localStorage.getItem('email');
+
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/get/buy/email/${encodeURIComponent(userEmail)}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        setAddresses(response.data);
+      } catch (error) {
+        console.error('Error fetching addresses:', error);
+        setError('Failed to fetch addresses.');
+      }
+    };
+
+    if (userEmail) {
+      fetchAddresses();
+    }
+  }, [token, userEmail]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,31 +51,37 @@ const AddressPage = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isEditing) {
-      setAddresses(addresses.map(address => address.id === editId ? { ...formData, id: editId } : address));
-      setIsEditing(false);
-      setEditId(null);
-    } else {
-      setAddresses([...addresses, { ...formData, id: addresses.length + 1 }]);
+    try {
+      if (editMode) {
+        await axios.put(`${apiUrl}/put/${editingAddressId}`, formData, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        setAddresses(addresses.map(address =>
+          address.aid === editingAddressId ? { ...formData, aid: editingAddressId } : address
+        ));
+      } else {
+        await axios.post(apiUrl, formData, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        setAddresses([...addresses, { ...formData, aid: addresses.length + 1 }]);
+      }
+      setFormData({
+        name: '',
+        mobile: '',
+        pincode: '',
+        address: '',
+        city: '',
+        state: '',
+        email: ''
+      });
+      setIsModalOpen(false);
+      setEditMode(false);
+    } catch (error) {
+      console.error('Error saving address:', error);
+      setError('Failed to save address.');
     }
-    setFormData({
-      name: '',
-      mobile: '',
-      pincode: '',
-      address: '',
-      city: '',
-      state: ''
-    });
-    setIsModalOpen(false);
-  };
-
-  const handleEdit = (address) => {
-    setFormData(address);
-    setIsEditing(true);
-    setEditId(address.id);
-    setIsModalOpen(true);
   };
 
   const handleAddNew = () => {
@@ -73,10 +91,18 @@ const AddressPage = () => {
       pincode: '',
       address: '',
       city: '',
-      state: ''
+      state: '',
+      email: ''
     });
-    setIsEditing(false);
     setIsModalOpen(true);
+    setEditMode(false);
+  };
+
+  const handleEdit = (address) => {
+    setFormData(address);
+    setEditingAddressId(address.aid);
+    setIsModalOpen(true);
+    setEditMode(true);
   };
 
   const handleDeliverHere = (address) => {
@@ -84,57 +110,68 @@ const AddressPage = () => {
     navigate('/payment');
   };
 
+  const deleteAddress = async (aid) => {
+    try {
+      await axios.delete(`${apiUrl}/delete/${aid}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      setAddresses(addresses.filter(address => address.aid !== aid));
+    } catch (error) {
+      console.error('Error deleting address:', error);
+      setError('Failed to delete address.');
+    }
+  };
+
   return (
-    <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column'
-    }}>
-      <CommonNav/>
+    <>
+      <CommonNav/> {/* Add this line to include the navbar */}
+
       <div style={{
-        flex: 1,
-        backgroundImage: 'url("https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148901163.jpg?w=996&t=st=1722529175~exp=1722529775~hmac=9a176fcd093ed454480b436202d8d21fae8e6caa4bf84d01b78c3623b99781de")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
         padding: '20px',
-        boxSizing: 'border-box'
+        // backgroundColor: '#f4f4f4',
+        minHeight: '100vh'
       }}>
         <div style={{
-          backgroundColor: 'rgba(255, 255, 255, 0.9)', // Slightly transparent background for content area
+          // backgroundColor: '#fff',
           padding: '20px',
-          boxSizing: 'border-box',
-          boxShadow: '0px 10px 20px #c3f7f3',
           borderRadius: '8px',
+          boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+          width: '100%',
           maxWidth: '800px',
-          margin: 'auto'
+          marginBottom: '20px'
         }}>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h2 style={{ marginBottom: '20px' }}>Saved Addresses</h2>
-            <button
-              onClick={handleAddNew}
-              style={{
-                padding: '10px',
-                backgroundColor: '#2874f0',
-                color: 'white',
-                borderRadius: '3px',
-                border: 'none',
-                cursor: 'pointer',
-                marginBottom: '20px'
-              }}
-            >
-              Add New Address
-            </button>
-            <div style={{ width: '100%', maxWidth: '600px', marginBottom: '20px' }}>
+          <h2 style={{ color: '#333', marginBottom: '20px' }}>Saved Addresses</h2>
+          <button
+            onClick={handleAddNew}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#007bff',
+              color: 'white',
+              borderRadius: '4px',
+              border: 'none',
+              cursor: 'pointer',
+              marginBottom: '20px'
+            }}
+          >
+            Add New Address
+          </button>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          {addresses.length > 0 ? (
+            <div>
               {addresses.map(address => (
                 <div
-                  key={address.id}
+                  key={address.aid}
                   style={{
-                    backgroundColor: 'white',
-                    padding: '20px',
-                    borderRadius: '5px',
-                    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-                    marginBottom: '10px'
+                    backgroundColor: '#f9f9f9',
+                    padding: '15px',
+                    borderRadius: '4px',
+                    boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+                    marginBottom: '10px',
+                    display: 'flex',
+                    flexDirection: 'column'
                   }}
                 >
                   <p><strong>Name:</strong> {address.name}</p>
@@ -143,151 +180,235 @@ const AddressPage = () => {
                   <p><strong>Address:</strong> {address.address}</p>
                   <p><strong>City:</strong> {address.city}</p>
                   <p><strong>State:</strong> {address.state}</p>
-                  <button
-                    onClick={() => handleEdit(address)}
-                    style={{
-                      padding: '4px',
-                      width: '20%',
-                      backgroundColor: '#2874f0',
-                      color: 'white',
-                      borderRadius: '3px',
-                      border: 'none',
-                      cursor: 'pointer',
-                      marginRight: '10px'
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDeliverHere(address)}
-                    style={{
-                      padding: '4px',
-                      width: '20%',
-                      backgroundColor: '#28a745',
-                      color: 'white',
-                      borderRadius: '3px',
-                      border: 'none',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    Deliver Here
-                  </button>
+                  <p><strong>Email:</strong> {address.email}</p>
+                  <div style={{ marginTop: '10px' }}>
+                    <button
+                      onClick={() => handleDeliverHere(address)}
+                      style={{
+                        padding: '8px 15px',
+                        backgroundColor: '#28a745',
+                        color: 'white',
+                        borderRadius: '4px',
+                        border: 'none',
+                        cursor: 'pointer',
+                        marginRight: '10px'
+                      }}
+                    >
+                      Deliver Here
+                    </button>
+                    <button
+                      onClick={() => handleEdit(address)}
+                      style={{
+                        padding: '8px 15px',
+                        backgroundColor: '#ffc107',
+                        color: 'white',
+                        borderRadius: '4px',
+                        border: 'none',
+                        cursor: 'pointer',
+                        marginRight: '10px'
+                      }}
+                    >
+                      Edit Address
+                    </button>
+                    <button
+                      onClick={() => deleteAddress(address.aid)}
+                      style={{
+                        padding: '8px 15px',
+                        backgroundColor: '#dc3545',
+                        color: 'white',
+                        borderRadius: '4px',
+                        border: 'none',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      Delete Address
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
-          </div>
-
-          {isModalOpen && (
-            <div style={{
-              position: 'fixed',
-              top: '0',
-              left: '0',
-              right: '0',
-              bottom: '0',
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
-              <div style={{
-                backgroundColor: 'white',
-                padding: '20px',
-                borderRadius: '5px',
-                boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-                width: '100%',
-                maxWidth: '500px'
-              }}>
-                <h2 style={{ marginBottom: '20px' }}>{isEditing ? 'Edit Address' : 'Enter Delivery Address'}</h2>
-                <form onSubmit={handleSubmit}>
-                  <div style={{ marginBottom: '15px' }}>
-                    <label style={{ display: 'block', marginBottom: '5px' }}>Name</label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      style={{ width: '100%', padding: '8px', borderRadius: '3px', border: '1px solid #ccc' }}
-                      required
-                    />
-                  </div>
-                  <div style={{ marginBottom: '15px' }}>
-                    <label style={{ display: 'block', marginBottom: '5px' }}>Mobile Number</label>
-                    <input
-                      type="text"
-                      name="mobile"
-                      value={formData.mobile}
-                      onChange={handleChange}
-                      style={{ width: '100%', padding: '8px', borderRadius: '3px', border: '1px solid #ccc' }}
-                      required
-                    />
-                  </div>
-                  <div style={{ marginBottom: '15px' }}>
-                    <label style={{ display: 'block', marginBottom: '5px' }}>Pincode</label>
-                    <input
-                      type="text"
-                      name="pincode"
-                      value={formData.pincode}
-                      onChange={handleChange}
-                      style={{ width: '100%', padding: '8px', borderRadius: '3px', border: '1px solid #ccc' }}
-                      required
-                    />
-                  </div>
-                  <div style={{ marginBottom: '15px' }}>
-                    <label style={{ display: 'block', marginBottom: '5px' }}>Address</label>
-                    <textarea
-                      name="address"
-                      value={formData.address}
-                      onChange={handleChange}
-                      style={{ width: '100%', padding: '8px', borderRadius: '3px', border: '1px solid #ccc' }}
-                      required
-                    />
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
-                    <div style={{ flexBasis: '48%' }}>
-                      <label style={{ display: 'block', marginBottom: '5px' }}>City</label>
-                      <input
-                        type="text"
-                        name="city"
-                        value={formData.city}
-                        onChange={handleChange}
-                        style={{ width: '100%', padding: '8px', borderRadius: '3px', border: '1px solid #ccc' }}
-                        required
-                      />
-                    </div>
-                    <div style={{ flexBasis: '48%' }}>
-                      <label style={{ display: 'block', marginBottom: '5px' }}>State</label>
-                      <input
-                        type="text"
-                        name="state"
-                        value={formData.state}
-                        onChange={handleChange}
-                        style={{ width: '100%', padding: '8px', borderRadius: '3px', border: '1px solid #ccc' }}
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <button
-                      type="submit"
-                      style={{ padding: '10px', backgroundColor: '#2874f0', color: 'white', borderRadius: '3px', border: 'none', cursor: 'pointer' }}
-                    >
-                      {isEditing ? 'Save Changes' : 'Save and Deliver Here'}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setIsModalOpen(false)}
-                      style={{ padding: '10px', backgroundColor: '#f44336', color: 'white', borderRadius: '3px', border: 'none', cursor: 'pointer' }}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
+          ) : (
+            <p>No addresses found.</p>
           )}
         </div>
       </div>
-    </div>
+
+      {isModalOpen && (
+        <>
+          <div style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: '#fff',
+            padding: '20px',
+            borderRadius: '8px',
+            boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+            width: '100%',
+            maxWidth: '500px',
+            zIndex: 1000
+          }}>
+            <h2>{editMode ? 'Edit Address' : 'Add New Address'}</h2>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                name="name"
+                placeholder="Name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                style={{
+                  padding: '10px',
+                  width: '100%',
+                  marginBottom: '10px',
+                  borderRadius: '4px',
+                  border: '1px solid #ddd',
+                  boxSizing: 'border-box'
+                }}
+              />
+              <input
+                type="text"
+                name="mobile"
+                placeholder="Mobile"
+                value={formData.mobile}
+                onChange={handleChange}
+                required
+                style={{
+                  padding: '10px',
+                  width: '100%',
+                  marginBottom: '10px',
+                  borderRadius: '4px',
+                  border: '1px solid #ddd',
+                  boxSizing: 'border-box'
+                }}
+              />
+              <input
+                type="text"
+                name="pincode"
+                placeholder="Pincode"
+                value={formData.pincode}
+                onChange={handleChange}
+                required
+                style={{
+                  padding: '10px',
+                  width: '100%',
+                  marginBottom: '10px',
+                  borderRadius: '4px',
+                  border: '1px solid #ddd',
+                  boxSizing: 'border-box'
+                }}
+              />
+              <textarea
+                name="address"
+                placeholder="Address"
+                value={formData.address}
+                onChange={handleChange}
+                required
+                style={{
+                  padding: '10px',
+                  width: '100%',
+                  marginBottom: '10px',
+                  borderRadius: '4px',
+                  border: '1px solid #ddd',
+                  boxSizing: 'border-box',
+                  minHeight: '80px'
+                }}
+              />
+              <input
+                type="text"
+                name="city"
+                placeholder="City"
+                value={formData.city}
+                onChange={handleChange}
+                required
+                style={{
+                  padding: '10px',
+                  width: '100%',
+                  marginBottom: '10px',
+                  borderRadius: '4px',
+                  border: '1px solid #ddd',
+                  boxSizing: 'border-box'
+                }}
+              />
+              <input
+                type="text"
+                name="state"
+                placeholder="State"
+                value={formData.state}
+                onChange={handleChange}
+                required
+                style={{
+                  padding: '10px',
+                  width: '100%',
+                  marginBottom: '10px',
+                  borderRadius: '4px',
+                  border: '1px solid #ddd',
+                  boxSizing: 'border-box'
+                }}
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                style={{
+                  padding: '10px',
+                  width: '100%',
+                  marginBottom: '10px',
+                  borderRadius: '4px',
+                  border: '1px solid #ddd',
+                  boxSizing: 'border-box'
+                }}
+              />
+              <button
+                type="submit"
+                style={{
+                  padding: '10px 20px',
+                  backgroundColor: '#007bff',
+                  color: 'white',
+                  borderRadius: '4px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  width: '100%'
+                }}
+              >
+                {editMode ? 'Update Address' : 'Add Address'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(false)}
+                style={{
+                  padding: '10px 20px',
+                  backgroundColor: '#6c757d',
+                  color: 'white',
+                  borderRadius: '4px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  width: '100%',
+                  marginTop: '10px'
+                }}
+              >
+                Cancel
+              </button>
+            </form>
+          </div>
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              backgroundColor: 'rgba(0, 0, 0, 0.3)',
+              zIndex: 999
+            }}
+            onClick={() => setIsModalOpen(false)}
+          />
+        </>
+      )}
+    </>
   );
 };
 

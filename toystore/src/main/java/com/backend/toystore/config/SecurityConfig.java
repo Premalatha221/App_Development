@@ -61,7 +61,8 @@ public class SecurityConfig {
                                                                 "/api/products/**",
                                                                 "/api/buy/**",
                                                                 "api/payment/**",
-                                                                "api/orders/**")
+                                                                "api/orders/**",
+                                                                "api/addwish")
                                                 .authenticated())
                                 .sessionManagement(session -> session
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -1,5 +1,7 @@
 package com.backend.toystore.controller;
+
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,9 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import com.backend.toystore.model.Buy;
 import com.backend.toystore.service.BuyService;
 
+
+
 @RestController
 @RequestMapping("/api/buy")
-public class BuyController{
+public class BuyController {
+
     @Autowired
     BuyService bs;
 
@@ -29,14 +34,22 @@ public class BuyController{
     }
 
     @GetMapping("/get/buy/{aid}")
-    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<Buy> getById(@PathVariable Integer aid) {
         Buy obj = bs.getId(aid);
         return new ResponseEntity<>(obj, HttpStatus.OK);
     }
 
+    @GetMapping("/get/buy/email/{email}")
+@PreAuthorize("hasAuthority('USER')")
+public ResponseEntity<List<Buy>> getByUserEmail(@PathVariable String email) {
+    List<Buy> buys = bs.getByEmail(email);
+    return new ResponseEntity<>(buys, HttpStatus.OK);
+}
+
+
     @PutMapping("/put/{aid}")
-    @PreAuthorize("hasAuthority('USER') ")
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<Buy> updateBuy(@PathVariable("aid") int aid, @RequestBody Buy b) {
         if (bs.update(aid, b)) {
             return new ResponseEntity<>(b, HttpStatus.OK);

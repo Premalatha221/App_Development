@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { FaHeart, FaShoppingCart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './brand.css';
 
 const products = {
-  
   disney: [
     { id: 201, name: 'Disney Frozen Toys', price: '1899', image: 'https://www.toymarche.com/s/5f447e14285691dcc9bfcdf2/6674593173e090cd4f7474ae/2-480x480.jpg' },
     { id: 202, name: 'Disney Frozen Elsa', price: ' ₹1548', image: 'https://www.toymarche.com/s/5f447e14285691dcc9bfcdf2/666df1467e1f3ffd69e6aa0a/htg24-480x480.jpg' },
@@ -60,6 +59,14 @@ const Brand = () => {
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')) || []);
   const [notification, setNotification] = useState({ show: false, message: '', type: '' });
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+    console.log('Is logged in:', !!token); // Debug log
+  }, []);
 
   const handleBrandChange = (brand) => {
     setBrand(brand);
@@ -71,11 +78,9 @@ const Brand = () => {
       let message;
       
       if (isProductInWishlist(product)) {
-        // Remove from wishlist if it already exists
         updatedWishlist = prevWishlist.filter(item => item.id !== product.id);
         message = `${product.name} removed from wishlist`;
       } else {
-        // Add to wishlist if it doesn't exist
         updatedWishlist = [...prevWishlist, product];
         message = `${product.name} added to wishlist`;
       }
@@ -96,9 +101,14 @@ const Brand = () => {
   };
 
   const handleBuy = (product) => {
-    if (window.confirm(`Are you sure you want to buy ${product.name}?`)) {
-      handleAddToCart(product);
-    }
+    if (isLoggedIn) {
+    console.log('Navigating to ordersummary page'); // Debug log
+  //   navigate('/ordersummary');
+   handleAddToCart(product);
+  } else {
+    console.log('Navigating to login page'); // Debug log
+    navigate('/login');
+  }
   };
 
   const showNotification = (message, type) => {

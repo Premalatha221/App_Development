@@ -46,8 +46,8 @@ const Navbar = () => {
               {isShopOpen && (
                 <ul className="dropdown-menu">
                   <li><Link to="/navcategory">Toys</Link></li>
-                  <li><Link to="/navcategory">Games</Link></li>
-                  <li><Link to="/navcategory">Education</Link></li>
+                  <li><Link to="/games">Games</Link></li>
+                  <li><Link to="/education">Education</Link></li>
                 </ul>
               )}
             </div>
@@ -57,9 +57,9 @@ const Navbar = () => {
               <span>Shop By Brands</span>
               {isBrandsOpen && (
                 <ul className="dropdown-menu">
-                  <li><Link to="/navcategory2">Disney</Link></li>
-                  <li><Link to="/navcategory2">Barbie</Link></li>
-                  <li><Link to="/navcategory2">Marvel</Link></li>
+                  <li><Link to="/disney">Disney</Link></li>
+                  <li><Link to="/barbie">Barbie</Link></li>
+                  <li><Link to="/marvel">Marvel</Link></li>
                 </ul>
               )}
             </div>
@@ -69,9 +69,9 @@ const Navbar = () => {
               <span>Shop By Age</span>
               {isAgeOpen && (
                 <ul className="dropdown-menu">
-                  <li><Link to="/navcategory3">0-3 years</Link></li>
-                  <li><Link to="/navcategory3">4-6 years</Link></li>
-                  <li><Link to="/navcategory3">6-9 years</Link></li>
+                  <li><Link to="/agezero">0-3 years</Link></li>
+                  <li><Link to="/agethree">4-6 years</Link></li>
+                  <li><Link to="/agelast">6-9 years</Link></li>
                 </ul>
               )}
             </div>

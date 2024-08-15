@@ -41,7 +41,9 @@ const AdminOrders = () => {
       display: 'block',
       margin: '10px 0',
       padding: '10px',
-      width: 'calc(100% - 22px)', // Adjust for padding
+     marginLeft:'400px',
+     width:'290px'
+      // width: 'calc(100% - 22px)', // Adjust for padding
     },
     button: {
       padding: '10px',
@@ -88,7 +90,7 @@ const AdminOrders = () => {
       <h1>Orders</h1>
       
       <div style={styles.addOrder}>
-        <h2>Add New Order</h2>
+        {/* <h2>Add New Order</h2> */}
         <input
           type="text"
           name="customerName"

@@ -52,12 +52,12 @@ public class Feedback {
 
 
     //   // Mapping to product
-     @OneToOne
-    @JsonBackReference
-    @JoinColumn(name = "product_id", referencedColumnName = "productId", nullable = false)
+    // @OneToOne
+    // @JsonBackReference
+    // @JoinColumn(name = "product_id", referencedColumnName = "productId", nullable = false)
     
     
-    private Product product;
+    // private Product product;
 
 // public Product getProduct() {
 //     return product;

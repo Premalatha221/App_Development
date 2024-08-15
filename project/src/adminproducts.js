@@ -1,169 +1,449 @@
+// import { useEffect, useState } from "react";
+// import axios from "axios";
+// import { TextField, Button, Box } from "@mui/material";
 
-import React, { useState } from 'react';
+// const AdminProducts = () => {
+//   const [resData, setResData] = useState([]);
+//   const [productData, setProductData] = useState({
+//     productName: '',
+//     productPrice: '',
+//     imageUrl: ''
+//   });
+//   const [isEditing, setIsEditing] = useState(false);
+//   const [editProductId, setEditProductId] = useState(null);
 
-const initialProducts = [
-  { id: 1, name: 'Toy Car', price: 10, image: 'https://www.toymarche.com/s/5f447e14285691dcc9bfcdf2/5fc77504a4241b40119e3e6a/9780723297055-640x640.jpg' },
-  { id: 2, name: 'Doll', price: 15, image: 'https://www.toymarche.com/s/5f447e14285691dcc9bfcdf2/669a5880b35f70da790bb0ac/9789388416399_01-1-640x640.jpg' },
-  { id: 3, name: 'Action Figure', price: 20, image: 'https://www.toymarche.com/s/5f447e14285691dcc9bfcdf2/5fd0a5327d0fba4d011307fa/9780241361207-640x640.jpg' }
-];
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const token = localStorage.getItem("token");
+//         const config = {
+//           headers: {
+//             "Content-Type": "application/json",
+//             Authorization: `Bearer ${token}`,
+//           },
+//         };
+//         const response = await axios.get("http://127.0.0.1:8080/api/products", config);
+//         setResData(response.data);
+//       } catch (error) {
+//         console.error(error);
+//       }
+//     };
+//     fetchData();
+//   }, []);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setProductData({
+//       ...productData,
+//       [name]: value,
+//     });
+//   };
+
+//   // const handleSubmit = async (e) => {
+//   //   e.preventDefault();
+//   //   const token = localStorage.getItem('token');
+//   //   const config = {
+//   //     headers: {
+//   //       'Content-Type': 'application/json',
+//   //       Authorization: `Bearer ${token}`,
+//   //     },
+//   //   };
+
+//   //   try {
+//   //     if (isEditing) {
+//   //       await axios.put(`http://127.0.0.1:8080/api/products/${productId}`, productData, config);
+//   //     } else {
+//   //       await axios.post('http://127.0.0.1:8080/api/products', productData, config);
+//   //     }
+
+//   //     // Refresh the product list after adding/updating a product
+//   //     const response = await axios.get("http://127.0.0.1:8080/api/products", config);
+//   //     setResData(response.data);
+
+//   //     // Reset form and editing state
+//   //     setProductData({
+//   //       productName: '',
+//   //       productPrice: '',
+//   //       imageUrl: ''
+//   //     });
+//   //     setIsEditing(false);
+//   //     setEditProductId(null);
+
+//   //   } catch (error) {
+//   //     console.error('Error adding/updating product:', error.message);
+//   //   }
+//   // };
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     const token = localStorage.getItem('token');
+//     const config = {
+//       headers: {
+//         'Content-Type': 'application/json',
+//         Authorization: `Bearer ${token}`,
+//       },
+//     };
+  
+//     try {
+//       if (isEditing && editProductId) {
+//         // Update existing product
+//         await axios.put(`http://127.0.0.1:8080/api/products/${editProductId}`, productData, config);
+//       } else {
+//         // Add new product
+//         await axios.post('http://127.0.0.1:8080/api/products', productData, config);
+//       }
+  
+//       // Refresh the product list after adding/updating a product
+//       const response = await axios.get("http://127.0.0.1:8080/api/products", config);
+//       setResData(response.data);
+  
+//       // Reset form and editing state
+//       setProductData({
+//         productName: '',
+//         productPrice: '',
+//         imageUrl: ''
+//       });
+//       setIsEditing(false);
+//       setEditProductId(null);
+  
+//     } catch (error) {
+//       console.error('Error adding/updating product:', error.message);
+//     }
+//   };
+  
+//   const handleDelete = async (productId) => {
+//     try {
+//       const token = localStorage.getItem('token');
+//       const config = {
+//         headers: {
+//           'Content-Type': 'application/json',
+//           Authorization: `Bearer ${token}`,
+//         },
+//       };
+
+//       await axios.delete(`http://127.0.0.1:8080/api/products/${productId}`, config);
+
+//       // Update the product list after deletion
+//       setResData(resData.filter((item) => item.productId !== productId));
+//     } catch (error) {
+//       console.error('Error deleting product:', error.message);
+//     }
+//   };
+
+//   const handleEdit = (product) => {
+//     setProductData({
+//       productName: product.productName,
+//       productPrice: product.productPrice,
+//       imageUrl: product.imageUrl,
+//     });
+//     setIsEditing(true);
+//     setEditProductId(product.productId);
+//   };
+
+//   return (
+//     <div style={{ background: 'none', padding: 0, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+//       <h1 style={{ marginBottom: '2rem', fontWeight: 'bold', textAlign: 'center' }}>
+//         {isEditing ? 'Edit Product' : 'Add Product'}
+//       </h1>
+      
+//       <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3, mb: 5, width: '100%', maxWidth: '600px' }}>
+//         <TextField
+//           name="productName"
+//           label="Product Name"
+//           value={productData.productName}
+//           onChange={handleChange}
+//           fullWidth
+//           required
+//           sx={{ mb: 2, maxWidth: '500px' }}
+//         />
+//         <TextField
+//           name="productPrice"
+//           label="Product Price"
+//           type="number"
+//           value={productData.productPrice}
+//           onChange={handleChange}
+//           fullWidth
+//           required
+//           sx={{ mb: 2, maxWidth: '500px' }}
+//         />
+//         <TextField
+//           name="imageUrl"
+//           label="Product Image URL"
+//           value={productData.imageUrl}
+//           onChange={handleChange}
+//           fullWidth
+//           required
+//           sx={{ mb: 2, maxWidth: '500px' }}
+//         />
+//         <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
+//           {isEditing ? 'Update Product' : 'Add Product'}
+//         </Button>
+//       </Box>
+
+//       <h3 style={{ textAlign: 'center', fontWeight: 'bold', marginBottom: '1rem' }}>All Products</h3>
+//       <div style={{
+//         display: 'flex',
+//         flexWrap: 'wrap',
+//         justifyContent: 'center',
+//         gap: '1rem',
+//         width: '100%',
+//         maxWidth: '1200px'
+//       }}>
+//         {resData.map((item) => (
+//           <div key={item.productId} style={{
+//             border: '1px solid #ddd',
+//             borderRadius: '8px',
+//             overflow: 'hidden',
+//             background: '#fff',
+//             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+//             width: '300px'
+//           }}>
+//             <img src={item.imageUrl} alt={item.productName} style={{
+//               width: '100%',
+//               height: 'auto',
+//               display: 'block'
+//             }} />
+//             <div style={{ padding: '1rem' }}>
+//               <h5 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>{item.productName}</h5>
+//               <p style={{ fontSize: '1rem', color: '#333' }}>₹ {item.productPrice}</p>
+//               <Button
+//                 variant="contained"
+//                 color="primary"
+//                 onClick={() => handleEdit(item)}
+//                 sx={{ mt: 2, mr: 1 }}
+//               >
+//                 Edit
+//               </Button>
+//               <Button
+//                 variant="contained"
+//                 color="error"
+//                 onClick={() => handleDelete(item.productId)}
+//                 sx={{ mt: 2 }}
+//               >
+//                 Delete
+//               </Button>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+// export default AdminProducts;
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { TextField, Button, Box } from "@mui/material";
+import { useNavigate } from 'react-router-dom'; 
 
 const AdminProducts = () => {
-  const [products, setProducts] = useState(initialProducts);
-  const [newProduct, setNewProduct] = useState({ name: '', price: '', image: '' });
+  const [resData, setResData] = useState([]);
+  const [productData, setProductData] = useState({
+    productName: '',
+    productPrice: '',
+    imageUrl: '',
+    category: '' // Include category in the state
+  });
+  const [isEditing, setIsEditing] = useState(false);
+  const [editProductId, setEditProductId] = useState(null);
+  const navigate = useNavigate(); // Initialize navigate
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        };
+        const response = await axios.get("http://127.0.0.1:8080/api/products", config);
+        setResData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNewProduct({ ...newProduct, [name]: value });
+    setProductData({
+      ...productData,
+      [name]: value,
+    });
   };
 
-  const handleAddProduct = () => {
-    if (newProduct.name && newProduct.price && newProduct.image) {
-      const newId = products.length ? products[products.length - 1].id + 1 : 1;
-      setProducts([...products, { id: newId, ...newProduct }]);
-      setNewProduct({ name: '', price: '', image: '' });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem('token');
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      if (isEditing && editProductId) {
+        // Update existing product
+        await axios.put(`http://127.0.0.1:8080/api/products/${editProductId}`, productData, config);
+      } else {
+        // Add new product
+        await axios.post('http://127.0.0.1:8080/api/products', productData, config);
+      }
+
+      // Refresh the product list after adding/updating a product
+      const response = await axios.get("http://127.0.0.1:8080/api/products", config);
+      setResData(response.data);
+
+      // Reset form and editing state
+      setProductData({
+        productName: '',
+        productPrice: '',
+        imageUrl: '',
+        category: '' // Reset category as well
+      });
+      setIsEditing(false);
+      setEditProductId(null);
+
+    } catch (error) {
+      console.error('Error adding/updating product:', error.message);
     }
   };
 
-  const handleDeleteProduct = (id) => {
-    setProducts(products.filter(product => product.id !== id));
+  const handleDelete = async (productId) => {
+    try {
+      const token = localStorage.getItem('token');
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      await axios.delete(`http://127.0.0.1:8080/api/products/${productId}`, config);
+
+      // Update the product list after deletion
+      setResData(resData.filter((item) => item.productId !== productId));
+    } catch (error) {
+      console.error('Error deleting product:', error.message);
+    }
   };
 
-  // Inline CSS styles
-  const styles = {
-    container: {
-      padding: '20px',
-    },
-    addProduct: {
-      marginBottom: '20px',
-    },
-    input: {
-      display: 'block',
-      margin: '10px 0',
-      padding: '10px',
-      width: 'calc(100% - 22px)', 
-    },
-    button: {
-      padding: '10px',
-      backgroundColor: '#007bff',
-      color: 'white',
-      border: 'none',
-      borderRadius: '4px',
-      cursor: 'pointer',
-    },
-    buttonHover: {
-      backgroundColor: '#0056b3',
-    },
-    productList: {
-      marginTop: '20px',
-    },
-    cardContainer: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      gap: '20px',
-    },
-    card: {
-      border: '1px solid #ddd',
-      borderRadius: '8px',
-      overflow: 'hidden',
-      width: 'calc(33% - 20px)', // 3 cards per row with gap
-      boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-      backgroundColor: '#fff',
-    },
-    cardImage: {
-      width: '100%',
-      height: '150px',
-      objectFit: 'cover',
-    },
-    cardContent: {
-      padding: '10px',
-      textAlign: 'center',
-    },
-    cardTitle: {
-      margin: '10px 0',
-      fontSize: '1.2rem',
-    },
-    cardPrice: {
-      color: '#007bff',
-      fontSize: '1.1rem',
-    },
-    deleteButton: {
-      marginTop: '10px',
-      padding: '10px',
-      backgroundColor: '#dc3545',
-      color: 'white',
-      border: 'none',
-      borderRadius: '4px',
-      cursor: 'pointer',
-    },
-    deleteButtonHover: {
-      backgroundColor: '#c82333',
-    },
+  const handleEdit = (product) => {
+    setProductData({
+      productName: product.productName,
+      productPrice: product.productPrice,
+      imageUrl: product.imageUrl,
+      category: product.category // Set the category
+    });
+    setIsEditing(true);
+    setEditProductId(product.productId);
+    
+    // Navigate based on category
+    if (product.category === 'games') {
+      navigate('/games'); // Replace '/games' with the actual route for games
+    }
   };
 
   return (
-    <div style={styles.container}>
-      <h1>Products</h1>
+    <div style={{ background: 'none', padding: 0, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <h1 style={{ marginBottom: '2rem', fontWeight: 'bold', textAlign: 'center' }}>
+        {isEditing ? 'Edit Product' : 'Add Product'}
+      </h1>
       
-      <div style={styles.addProduct}>
-        <h2>Add New Product</h2>
-        <input
-          type="text"
-          name="name"
-          value={newProduct.name}
+      <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3, mb: 5, width: '100%', maxWidth: '600px' }}>
+        <TextField
+          name="productName"
+          label="Product Name"
+          value={productData.productName}
           onChange={handleChange}
-          placeholder="Product Name"
-          style={styles.input}
+          fullWidth
+          required
+          sx={{ mb: 2, maxWidth: '500px' }}
         />
-        <input
+        <TextField
+          name="productPrice"
+          label="Product Price"
           type="number"
-          name="price"
-          value={newProduct.price}
+          value={productData.productPrice}
           onChange={handleChange}
-          placeholder="Product Price"
-          style={styles.input}
+          fullWidth
+          required
+          sx={{ mb: 2, maxWidth: '500px' }}
         />
-        <input
-          type="text"
-          name="image"
-          value={newProduct.image}
+        <TextField
+          name="imageUrl"
+          label="Product Image URL"
+          value={productData.imageUrl}
           onChange={handleChange}
-          placeholder="Product Image URL"
-          style={styles.input}
+          fullWidth
+          required
+          sx={{ mb: 2, maxWidth: '500px' }}
         />
-        <button
-          onClick={handleAddProduct}
-          style={styles.button}
-          onMouseOver={(e) => e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor}
-          onMouseOut={(e) => e.currentTarget.style.backgroundColor = styles.button.backgroundColor}
-        >
-          Add Product
-        </button>
-      </div>
+        <TextField
+          name="category"
+          label="Category"
+          value={productData.category}
+          onChange={handleChange}
+          fullWidth
+          required
+          sx={{ mb: 2, maxWidth: '500px' }}
+        />
+        <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
+          {isEditing ? 'Update Product' : 'Add Product'}
+        </Button>
+      </Box>
 
-      <div style={styles.productList}>
-        <h2>Product List</h2>
-        <div style={styles.cardContainer}>
-          {products.map(product => (
-            <div key={product.id} style={styles.card}>
-              <img src={product.image} alt={product.name} style={styles.cardImage} />
-              <div style={styles.cardContent}>
-                <h3 style={styles.cardTitle}>{product.name}</h3>
-                <p style={styles.cardPrice}>${product.price}</p>
-                <button
-                  onClick={() => handleDeleteProduct(product.id)}
-                  style={styles.deleteButton}
-                  onMouseOver={(e) => e.currentTarget.style.backgroundColor = styles.deleteButtonHover.backgroundColor}
-                  onMouseOut={(e) => e.currentTarget.style.backgroundColor = styles.deleteButton.backgroundColor}
-                >
-                  Delete
-                </button>
-              </div>
+      <h3 style={{ textAlign: 'center', fontWeight: 'bold', marginBottom: '1rem' }}>All Products</h3>
+      <div style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        gap: '1rem',
+        width: '100%',
+        maxWidth: '1200px'
+      }}>
+        {resData.map((item) => (
+          <div key={item.productId} style={{
+            border: '1px solid #ddd',
+            borderRadius: '8px',
+            overflow: 'hidden',
+            background: '#fff',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            width: '300px'
+          }}>
+            <img src={item.imageUrl} alt={item.productName} style={{
+              width: '100%',
+              height: 'auto',
+              display: 'block'
+            }} />
+            <div style={{ padding: '1rem' }}>
+              <h5 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>{item.productName}</h5>
+              <p style={{ fontSize: '1rem', color: '#333' }}>₹ {item.productPrice}</p>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => handleEdit(item)}
+                sx={{ mt: 2, mr: 1 }}
+              >
+                Edit
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={() => handleDelete(item.productId)}
+                sx={{ mt: 2 }}
+              >
+                Delete
+              </Button>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );
 };
 
 export default AdminProducts;
+

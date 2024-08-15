@@ -43,7 +43,7 @@ const ImageGallery = () => {
   };
 
   return (
-    <Link to="/login">
+    <Link to="/navCategory">
     <div style={containerStyle}>
       <img
         src="https://www.toymarche.com/s/5f447e14285691dcc9bfcdf2/63fb313795942044b3eb760e/11-480x480.png"

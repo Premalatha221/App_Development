@@ -49,22 +49,22 @@ const CircleCardGallery = () => {
       <CircleCard
         image="https://www.toymarche.com/s/5f447e14285691dcc9bfcdf2/64cbaa19536986266bde0305/8-480x480.png"
         alt="Product 1"
-        link="/login"
+        link="/navCategory"
       />
       <CircleCard
         image="https://www.toymarche.com/s/5f447e14285691dcc9bfcdf2/64cbb583ee13ab7b1f7b07ee/whatsapp-image-2023-08-03-at-7-37-55-pm-480x480.jpeg"
         alt="Product 2"
-        link="/login"
+        link="/navCategory"
       />
       <CircleCard
         image="https://www.toymarche.com/s/5f447e14285691dcc9bfcdf2/64cbaae69bc1043cf8d2ecd0/10-480x480.png"
         alt="Product 3"
-        link="/login"
+        link="/navCategory"
       />
       <CircleCard
         image="https://www.toymarche.com/s/5f447e14285691dcc9bfcdf2/64cbaafebb7d2f263a7cd020/11-480x480.png"
         alt="Product 3"
-        link="/login"
+        link="/navCategory"
       />
     </div>
   );
